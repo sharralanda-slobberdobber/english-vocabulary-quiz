@@ -1,0 +1,732 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>英语词汇小测试 - 一年级版</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Comic Sans MS', 'Microsoft YaHei', sans-serif;
+            background: linear-gradient(135deg, #E8D9C8 0%, #D4C4B8 50%, #C8B8A8 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 15px;
+            -webkit-font-smoothing: antialiased;
+        }
+
+        .container {
+            background: linear-gradient(145deg, #FAF8F5 0%, #F5F0E8 100%);
+            border-radius: 25px;
+            padding: 15px;
+            max-width: 500px;
+            width: 100%;
+            box-shadow: 0 15px 50px rgba(0, 0, 0, 0.1);
+            border: 3px solid #C8B8A8;
+            backface-visibility: hidden;
+            -webkit-backface-visibility: hidden;
+        }
+
+        h1 {
+            text-align: center;
+            color: #8B7355;
+            font-size: 1.5em;
+            margin-bottom: 12px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .emoji-decoration {
+            text-align: center;
+            font-size: 1.2em;
+            margin: 8px 0;
+            letter-spacing: 3px;
+        }
+
+        .level-selector {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 12px 0;
+            flex-wrap: wrap;
+        }
+
+        .level-btn {
+            padding: 8px 12px;
+            font-size: 0.85em;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #5D4E37;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #E8B4B8 0%, #D4A5A5 100%);
+            border: 2px solid #C49498;
+        }
+
+        .level-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .level-btn.active {
+            background: linear-gradient(135deg, #B8C9A8 0%, #A8B89A 100%);
+            border: 2px solid #98A888;
+        }
+
+        .mode-selector {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 12px 0;
+        }
+
+        .mode-btn {
+            padding: 8px 15px;
+            font-size: 0.9em;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #5D4E37;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #A8C0C8 0%, #9DB4C0 100%);
+            border: 2px solid #8DA8B0;
+        }
+
+        .mode-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .mode-btn.active {
+            background: linear-gradient(135deg, #C8B8D4 0%, #B8A8C4 100%);
+            border: 2px solid #A898B4;
+        }
+
+        .word-display {
+            background: linear-gradient(135deg, #F5E6D3 0%, #E8D9C8 100%);
+            border-radius: 20px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: center;
+            border: 2px solid #D4C4B8;
+            box-shadow: 0 8px 20px rgba(212, 196, 184, 0.3);
+        }
+
+        .word-text {
+            font-size: 2.5em;
+            font-weight: bold;
+            color: #5D4E37;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+        }
+
+        .word-translation {
+            font-size: 1.3em;
+            color: #7D8471;
+            margin-bottom: 8px;
+        }
+
+        .word-example {
+            font-size: 0.95em;
+            color: #8B8B7A;
+            font-style: italic;
+            margin-bottom: 12px;
+        }
+
+        .word-type {
+            font-size: 0.85em;
+            color: #9B9B8A;
+            background: linear-gradient(135deg, #D4C4B8 0%, #C8B8A8 100%);
+            padding: 4px 12px;
+            border-radius: 12px;
+            display: inline-block;
+        }
+
+        .sound-btn {
+            background: linear-gradient(135deg, #A8C0C8 0%, #9DB4C0 100%);
+            border: 2px solid #8DA8B0;
+            color: #5D4E37;
+            padding: 8px 15px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 1.2em;
+            margin-top: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .sound-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin: 12px 0;
+            flex-wrap: wrap;
+        }
+
+        .nav-btn {
+            padding: 8px 15px;
+            font-size: 0.85em;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #5D4E37;
+            transition: all 0.3s ease;
+        }
+
+        .nav-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .nav-btn.prev {
+            background: linear-gradient(135deg, #E8B4B8 0%, #D4A5A5 100%);
+            border: 2px solid #C49498;
+        }
+
+        .nav-btn.next {
+            background: linear-gradient(135deg, #B8C9A8 0%, #A8B89A 100%);
+            border: 2px solid #98A888;
+        }
+
+        .nav-btn.shuffle {
+            background: linear-gradient(135deg, #C8B8D4 0%, #B8A8C4 100%);
+            border: 2px solid #A898B4;
+        }
+
+        .quiz-area {
+            background: linear-gradient(135deg, #F5E6D3 0%, #E8D9C8 100%);
+            border-radius: 20px;
+            padding: 15px;
+            margin: 15px 0;
+            border: 2px solid #D4C4B8;
+        }
+
+        .question {
+            text-align: center;
+            color: #7D8471;
+            font-size: 1.1em;
+            margin-bottom: 12px;
+        }
+
+        .options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .option-btn {
+            padding: 12px;
+            font-size: 0.95em;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            color: #5D4E37;
+            transition: all 0.3s ease;
+            background: linear-gradient(135deg, #E8B4B8 0%, #D4A5A5 100%);
+            border: 2px solid #C49498;
+        }
+
+        .option-btn:hover {
+            transform: scale(1.03);
+        }
+
+        .option-btn.correct {
+            background: linear-gradient(135deg, #B8C9A8 0%, #A8B89A 100%);
+            border: 2px solid #98A888;
+        }
+
+        .option-btn.wrong {
+            background: linear-gradient(135deg, #E8B4B8 0%, #D4A5A5 100%);
+            border: 2px solid #C49498;
+            opacity: 0.6;
+        }
+
+        .result {
+            text-align: center;
+            padding: 12px;
+            border-radius: 12px;
+            margin: 12px 0;
+            font-size: 1em;
+            font-weight: bold;
+            display: none;
+        }
+
+        .result.correct {
+            background: linear-gradient(135deg, #B8C9A8 0%, #A8B89A 100%);
+            color: #5D4E37;
+            border: 2px solid #98A888;
+        }
+
+        .result.wrong {
+            background: linear-gradient(135deg, #E8B4B8 0%, #D4A5A5 100%);
+            color: #5D4E37;
+            border: 2px solid #C49498;
+        }
+
+        .next-btn {
+            background: linear-gradient(135deg, #C8B8D4 0%, #B8A8C4 100%);
+            color: #5D4E37;
+            border: 2px solid #A898B4;
+            padding: 10px 20px;
+            font-size: 0.95em;
+            border-radius: 12px;
+            cursor: pointer;
+            font-weight: bold;
+            display: block;
+            margin: 12px auto;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.05);
+            transition: all 0.3s ease;
+        }
+
+        .next-btn:hover {
+            transform: scale(1.05);
+        }
+
+        .score {
+            text-align: center;
+            color: #5D4E37;
+            background: linear-gradient(135deg, #F5E6D3 0%, #E8D9C8 100%);
+            border: 2px solid #D4C4B8;
+            padding: 10px;
+            border-radius: 12px;
+            margin: 12px 0;
+        }
+
+        .stars {
+            font-size: 1.2em;
+            margin-bottom: 5px;
+        }
+
+        .progress {
+            text-align: center;
+            color: #8B8B7A;
+            font-size: 0.9em;
+            margin: 8px 0;
+        }
+
+        .progress-bar {
+            background: linear-gradient(135deg, #D4C4B8 0%, #C8B8A8 100%);
+            height: 8px;
+            border-radius: 4px;
+            margin: 8px auto;
+            max-width: 200px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            background: linear-gradient(135deg, #B8C9A8 0%, #A8B89A 100%);
+            height: 100%;
+            transition: width 0.3s ease;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        @keyframes shake {
+            0%, 100% { transform: translateX(0); }
+            25% { transform: translateX(-5px); }
+            75% { transform: translateX(5px); }
+        }
+
+        .bounce {
+            animation: bounce 0.5s ease;
+        }
+
+        .shake {
+            animation: shake 0.5s ease;
+        }
+
+        @media (max-width: 400px) {
+            .container {
+                padding: 12px;
+            }
+
+            h1 {
+                font-size: 1.3em;
+            }
+
+            .word-text {
+                font-size: 2em;
+            }
+
+            .word-translation {
+                font-size: 1.1em;
+            }
+
+            .options {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="emoji-decoration">🌟🎈🎉🎈🌟</div>
+        <h1>英语词汇小测试</h1>
+        <div class="emoji-decoration">🐼🦊🐰🐻🐨</div>
+        
+        <div class="level-selector">
+            <button class="level-btn active" onclick="selectLevel(1)">Level 1</button>
+            <button class="level-btn" onclick="selectLevel(2)">Level 2</button>
+            <button class="level-btn" onclick="selectLevel(3)">Level 3</button>
+        </div>
+
+        <div class="mode-selector">
+            <button class="mode-btn active" onclick="selectMode('learn')">📖 学习</button>
+            <button class="mode-btn" onclick="selectMode('quiz')">🎯 测试</button>
+        </div>
+
+        <div class="word-display" id="wordDisplay">
+            <div class="word-text" id="wordText">the</div>
+            <div class="word-translation" id="wordTranslation">这/那</div>
+            <div class="word-example" id="wordExample">The cat is black.</div>
+            <div class="word-type" id="wordType">article</div>
+            <button class="sound-btn" onclick="playWordSound()" title="听发音">🔊</button>
+        </div>
+
+        <div class="quiz-area" id="quizArea" style="display: none;">
+            <div class="question" id="question">这个单词的意思是？</div>
+            <div class="options" id="options">
+                <button class="option-btn" onclick="checkAnswer(0)">选项1</button>
+                <button class="option-btn" onclick="checkAnswer(1)">选项2</button>
+                <button class="option-btn" onclick="checkAnswer(2)">选项3</button>
+                <button class="option-btn" onclick="checkAnswer(3)">选项4</button>
+            </div>
+        </div>
+
+        <div class="result" id="result"></div>
+
+        <button class="next-btn" onclick="nextWord()" id="nextBtn">下一个 ➡️</button>
+
+        <div class="nav-buttons">
+            <button class="nav-btn prev" onclick="prevWord()">⬅️ 上一个</button>
+            <button class="nav-btn shuffle" onclick="shuffleWords()">🔀 打乱</button>
+            <button class="nav-btn next" onclick="nextWord()">下一个 ➡️</button>
+        </div>
+
+        <div class="progress">
+            <div id="progressText">1 / 50</div>
+            <div class="progress-bar">
+                <div class="progress-fill" id="progressFill" style="width: 2%"></div>
+            </div>
+        </div>
+
+        <div class="score" id="scoreArea" style="display: none;">
+            <div class="stars">⭐⭐⭐</div>
+            <div>得分: <span id="score">0</span> / <span id="total">0</span></div>
+        </div>
+    </div>
+
+    <script>
+        // Load word data
+        let wordData = {};
+        let currentLevel = 1;
+        let currentMode = 'learn';
+        let currentWords = [];
+        let currentIndex = 0;
+        let score = 0;
+        let total = 0;
+        let shuffled = false;
+
+        // Load words from JSON file
+        async function loadWords() {
+            try {
+                const response = await fetch('words.json');
+                wordData = await response.json();
+                currentWords = wordData.level1;
+                updateDisplay();
+            } catch (error) {
+                console.error('Error loading words:', error);
+                // Fallback to hardcoded words if file fails to load
+                wordData = {
+                    level1: [
+                        {word: "the", translation: "这/那", example: "The cat is black.", type: "article"},
+                        {word: "be", translation: "是", example: "I am happy.", type: "verb"},
+                        {word: "to", translation: "到/向", example: "Go to school.", type: "preposition"},
+                        {word: "of", translation: "的", example: "A cup of tea.", type: "preposition"},
+                        {word: "and", translation: "和", example: "You and I.", type: "conjunction"}
+                    ]
+                };
+                currentWords = wordData.level1;
+                updateDisplay();
+            }
+        }
+
+        // Select level
+        function selectLevel(level) {
+            currentLevel = level;
+            document.querySelectorAll('.level-btn').forEach((btn, index) => {
+                btn.classList.toggle('active', index + 1 === level);
+            });
+            
+            const levelKey = `level${level}`;
+            if (wordData[levelKey]) {
+                currentWords = wordData[levelKey];
+            } else {
+                // Fallback to level1 if level doesn't exist yet
+                currentWords = wordData.level1;
+            }
+            
+            currentIndex = 0;
+            shuffled = false;
+            score = 0;
+            total = 0;
+            updateDisplay();
+        }
+
+        // Select mode
+        function selectMode(mode) {
+            currentMode = mode;
+            document.querySelectorAll('.mode-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            const wordDisplay = document.getElementById('wordDisplay');
+            const quizArea = document.getElementById('quizArea');
+            const scoreArea = document.getElementById('scoreArea');
+            const nextBtn = document.getElementById('nextBtn');
+            
+            if (mode === 'learn') {
+                wordDisplay.style.display = 'block';
+                quizArea.style.display = 'none';
+                scoreArea.style.display = 'none';
+                nextBtn.style.display = 'block';
+            } else {
+                wordDisplay.style.display = 'none';
+                quizArea.style.display = 'block';
+                scoreArea.style.display = 'block';
+                nextBtn.style.display = 'none';
+                startQuiz();
+            }
+        }
+
+        // Update display
+        function updateDisplay() {
+            if (currentWords.length === 0) return;
+            
+            const word = currentWords[currentIndex];
+            document.getElementById('wordText').textContent = word.word;
+            document.getElementById('wordTranslation').textContent = word.translation;
+            document.getElementById('wordExample').textContent = word.example;
+            document.getElementById('wordType').textContent = word.type;
+            
+            const progress = ((currentIndex + 1) / currentWords.length) * 100;
+            document.getElementById('progressText').textContent = `${currentIndex + 1} / ${currentWords.length}`;
+            document.getElementById('progressFill').style.width = `${progress}%`;
+        }
+
+        // Play word sound
+        function playWordSound() {
+            if ('speechSynthesis' in window) {
+                const word = currentWords[currentIndex];
+                const utterance = new SpeechSynthesisUtterance(word.word);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.7;
+                utterance.pitch = 1.0;
+                utterance.volume = 1.0;
+                
+                // Try to get English voice
+                const voices = window.speechSynthesis.getVoices();
+                let englishVoice = null;
+                for (let voice of voices) {
+                    if (voice.lang.includes('en') || voice.lang.includes('US') || voice.lang.includes('GB')) {
+                        englishVoice = voice;
+                        if (voice.name.includes('Google') || voice.name.includes('Microsoft')) {
+                            break;
+                        }
+                    }
+                }
+                
+                if (englishVoice) {
+                    utterance.voice = englishVoice;
+                }
+                
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Navigation
+        function prevWord() {
+            if (currentIndex > 0) {
+                currentIndex--;
+                updateDisplay();
+            }
+        }
+
+        function nextWord() {
+            if (currentIndex < currentWords.length - 1) {
+                currentIndex++;
+                updateDisplay();
+            } else {
+                currentIndex = 0;
+                updateDisplay();
+            }
+        }
+
+        // Shuffle words
+        function shuffleWords() {
+            for (let i = currentWords.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [currentWords[i], currentWords[j]] = [currentWords[j], currentWords[i]];
+            }
+            currentIndex = 0;
+            shuffled = true;
+            updateDisplay();
+        }
+
+        // Quiz mode
+        function startQuiz() {
+            currentIndex = 0;
+            score = 0;
+            total = 0;
+            document.getElementById('score').textContent = score;
+            document.getElementById('total').textContent = total;
+            showQuizQuestion();
+        }
+
+        function showQuizQuestion() {
+            if (currentIndex >= currentWords.length) {
+                alert(`测试完成！\n得分: ${score} / ${total}\n正确率: ${total > 0 ? Math.round((score / total) * 100) : 0}%`);
+                currentIndex = 0;
+                score = 0;
+                total = 0;
+                selectMode('learn');
+                return;
+            }
+
+            const word = currentWords[currentIndex];
+            document.getElementById('question').textContent = `"${word.word}" 的意思是？`;
+            
+            // Generate options
+            const options = [word.translation];
+            const allTranslations = currentWords.map(w => w.translation).filter(t => t !== word.translation);
+            
+            while (options.length < 4 && allTranslations.length > 0) {
+                const randomIndex = Math.floor(Math.random() * allTranslations.length);
+                options.push(allTranslations.splice(randomIndex, 1)[0]);
+            }
+            
+            // Shuffle options
+            for (let i = options.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [options[i], options[j]] = [options[j], options[i]];
+            }
+            
+            const optionBtns = document.querySelectorAll('.option-btn');
+            optionBtns.forEach((btn, index) => {
+                btn.textContent = options[index];
+                btn.className = 'option-btn';
+                btn.disabled = false;
+            });
+            
+            document.getElementById('result').style.display = 'none';
+            document.getElementById('nextBtn').style.display = 'none';
+        }
+
+        function checkAnswer(selectedIndex) {
+            const word = currentWords[currentIndex];
+            const optionBtns = document.querySelectorAll('.option-btn');
+            const selectedText = optionBtns[selectedIndex].textContent;
+            
+            total++;
+            
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            
+            optionBtns.forEach(btn => {
+                btn.disabled = true;
+            });
+            
+            if (selectedText === word.translation) {
+                score++;
+                resultDiv.textContent = '🎉 答对了！太棒了！ 🎉';
+                resultDiv.className = 'result correct';
+                optionBtns[selectedIndex].classList.add('correct');
+                document.getElementById('wordText').classList.add('bounce');
+                playCorrectSound();
+            } else {
+                resultDiv.textContent = `😅 答错了！正确答案是：${word.translation}`;
+                resultDiv.className = 'result wrong';
+                optionBtns[selectedIndex].classList.add('wrong');
+                // Highlight correct answer
+                optionBtns.forEach(btn => {
+                    if (btn.textContent === word.translation) {
+                        btn.classList.add('correct');
+                    }
+                });
+                document.getElementById('wordText').classList.add('shake');
+                playWrongSound();
+            }
+            
+            document.getElementById('score').textContent = score;
+            document.getElementById('total').textContent = total;
+            document.getElementById('nextBtn').style.display = 'block';
+            
+            setTimeout(() => {
+                document.getElementById('wordText').classList.remove('bounce', 'shake');
+            }, 500);
+        }
+
+        // Sound effects
+        function playCorrectSound() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
+            oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1); // E5
+            oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2); // G5
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.3);
+        }
+
+        function playWrongSound() {
+            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+            const oscillator = audioContext.createOscillator();
+            const gainNode = audioContext.createGain();
+            
+            oscillator.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
+            oscillator.frequency.setValueAtTime(150, audioContext.currentTime + 0.1);
+            
+            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
+            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
+            
+            oscillator.start(audioContext.currentTime);
+            oscillator.stop(audioContext.currentTime + 0.3);
+        }
+
+        // Initialize
+        loadWords();
+        
+        // Load voices when available
+        if ('speechSynthesis' in window) {
+            window.speechSynthesis.onvoiceschanged = () => {
+                window.speechSynthesis.getVoices();
+            };
+        }
+    </script>
+</body>
+</html>
