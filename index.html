@@ -797,30 +797,25 @@
         function generateEmojiDecoration() {
             const emojis = [
                 // Animals
-                '🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐵',
-                '🐔', '🐧', '🐦', '🐤', '🦆', '🦅', '🦉', '🦇', '🐺', '🐗', '🐴', '🦄', '🐝', '🐛', '🦋',
-                '🐌', '🐞', '🐜', '🦟', '🦗', '🕷️', '🕸️', '🦂', '🐢', '🐍', '🦎', '🦖', '🦕', '🐙', '🦑',
-                '🦐', '🦞', '🦀', '🐡', '🐠', '🐟', '🐬', '🐳', '🐋', '🦈', '🐊', '🐅', '🐆', '🦓', '🦍',
+                '🐶', '🐱', '', '🦊', '🐻', '🐼', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐵', '🐔', '🐧', '🐦',
+                '🦆', '🦅', '🦉', '🦇', '🐺', '🐗', '🐴', '🦄', '🐝', '🦋', '', '🐍', '🦎', '🦖', '🦕', '🐙',
+                '�', '�🦐', '🦞', '🦀', '🐡', '🐠', '🐟', '🐬', '🐳', '🐋', '🦈', '🐊', '🐅', '🐆', '🦓', '🦍',
                 // Food
-                '🍎', '🍐', '🍊', '🍋', '🍌', '🍉', '🍇', '🍓', '🫐', '🍈', '🍒', '🍑', '🥭', '🍍', '🥥',
-                '🥝', '🍅', '🍆', '🥑', '🥦', '🥬', '🥒', '🌶️', '🫑', '🌽', '🥕', '🫒', '🧄', '🧅', '🥔',
-                '🍠', '🥐', '🥯', '🍞', '🥖', '🥨', '🧀', '🥚', '🍳', '🧈', '🥞', '🧇', '🥓', '🥩', '🍗',
-                '🍖', '🦴', '🌭', '🍔', '🍟', '🍕', '🫓', '🥪', '🥙', '🧆', '🌮', '🌯', '🫔', '🥗', '🥘',
-                '🫕', '🍝', '🍜', '🍲', '🍛', '🍣', '🍱', '🥟', '🦪', '🍤', '🍙', '🍚', '🍘', '🍥', '🥠',
-                // Objects
-                '🎈', '🎉', '🎊', '🎁', '🎀', '🎗️', '🎟️', '🎫', '🎖️', '🏆', '🏅', '🥇', '🥈', '🥉', '⚽',
-                '🏀', '🏈', '⚾', '🥎', '🎾', '🏐', '🏉', '🥏', '🎱', '🪀', '🏓', '🏸', '🏒', '🏑', '🥍',
-                '🏏', '🪃', '🥅', '⛳', '🪁', '🏹', '🎣', '🤿', '🥊', '🥋', '🎽', '🛹', '🛼', '🛷', '⛸️',
-                '🥌', '🎿', '⛷️', '🏂', '🪂', '🏋️', '🤼', '🤸', '🤺', '⛹️', '🤾', '🏌️', '🏇', '🧘', '🏄',
-                '🏊', '🤽', '🚣', '🧗', '🚴', '🚵', '🎪', '🎭', '🎨', '🎬', '🎤', '🎧', '🎼', '🎹', '🥁',
-                '🪘', '🎷', '🎺', '🪗', '🎸', '🪕', '🎻', '🎲', '♟️', '🎯', '🎳', '🎮', '🎰', '🧩', '🧸'
+                '🍎', '🍐', '🍊', '🍋', '🍌', '🍉', '🍇', '🍓', '🫐', '', '🍑', '🥭', '🍍', '🥥', '🥝', '🍅',
+                '🍆', '🥑', '🥦', '🥬', '🥒', '🌶️', '🫑', '🌽', '🥕', '🫒', '🧄', '🧅', '🥔', '🍠', '🥐', '🥯',
+                '🍞', '🥖', '🥨', '🧀', '🥚', '🍳', '🧈', '🥞', '🧇', '🥓', '🥩', '🍗', '🍖', '🦴', '🌭', '🍔',
+                '🍟', '🍕', '🫓', '🥪', '🥙', '🧆', '🌮', '🌯', '🫔', '🥗', '🥘', '🫕', '🍝', '🍜', '🍲', '🍛',
+                '🍣', '🍱', '🥟', '🦪', '🍤', '🍙', '🍚', '🍘', '🍥', '🥠', '�', '�', '�', '�', '�', '�',
+                '�', '�', '�', '�', '�', '�', '�', '☕', '�', '�', '�', '�', '�', '�', '�', '�',
+                '�', '�', '�', '�', '�', '�', '�', '�', '�', '�', '�️', '�', '�', '�', '�', '�'
             ];
 
             const container = document.getElementById('emojiDecoration');
             const usedEmojis = new Set();
-            const numEmojis = 25;
+            const emojisPerSide = 4;
+            const totalEmojis = emojisPerSide * 4;
 
-            for (let i = 0; i < numEmojis; i++) {
+            for (let i = 0; i < totalEmojis; i++) {
                 let emoji;
                 do {
                     emoji = emojis[Math.floor(Math.random() * emojis.length)];
@@ -831,30 +826,30 @@
                 emojiItem.className = 'emoji-item';
                 emojiItem.textContent = emoji;
 
-                // Random rotation between -20 and 20 degrees
-                const rotation = (Math.random() - 0.5) * 40;
+                // Random rotation between -25 and 25 degrees
+                const rotation = (Math.random() - 0.5) * 50;
                 emojiItem.style.setProperty('--rotation', `${rotation}deg`);
 
-                // Position around the edges
-                const position = Math.random();
-                const edge = Math.floor(Math.random() * 4); // 0: top, 1: right, 2: bottom, 3: left
+                // Determine which side and position
+                const sideIndex = Math.floor(i / emojisPerSide); // 0: top, 1: right, 2: bottom, 3: left
+                const positionInSide = i % emojisPerSide; // 0, 1, 2, 3
 
-                switch (edge) {
-                    case 0: // top
-                        emojiItem.style.top = `${Math.random() * 20}%`;
-                        emojiItem.style.left = `${Math.random() * 100}%`;
+                switch (sideIndex) {
+                    case 0: // top - evenly spaced
+                        emojiItem.style.top = '5%';
+                        emojiItem.style.left = `${15 + positionInSide * 23}%`;
                         break;
-                    case 1: // right
-                        emojiItem.style.top = `${Math.random() * 100}%`;
-                        emojiItem.style.right = '0';
+                    case 1: // right - evenly spaced
+                        emojiItem.style.right = '2%';
+                        emojiItem.style.top = `${15 + positionInSide * 23}%`;
                         break;
-                    case 2: // bottom
-                        emojiItem.style.bottom = `${Math.random() * 20}%`;
-                        emojiItem.style.left = `${Math.random() * 100}%`;
+                    case 2: // bottom - evenly spaced
+                        emojiItem.style.bottom = '5%';
+                        emojiItem.style.left = `${15 + positionInSide * 23}%`;
                         break;
-                    case 3: // left
-                        emojiItem.style.top = `${Math.random() * 100}%`;
-                        emojiItem.style.left = '0';
+                    case 3: // left - evenly spaced
+                        emojiItem.style.left = '2%';
+                        emojiItem.style.top = `${15 + positionInSide * 23}%`;
                         break;
                 }
 
