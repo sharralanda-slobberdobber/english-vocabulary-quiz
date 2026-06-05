@@ -41,10 +41,21 @@
         }
 
         .emoji-decoration {
-            text-align: center;
-            font-size: 1.5em;
-            margin: 10px 0;
-            letter-spacing: 5px;
+            position: fixed;
+            font-size: 1.8em;
+            pointer-events: none;
+            opacity: 0.6;
+            z-index: 0;
+        }
+
+        .emoji-item {
+            position: absolute;
+            transform: rotate(var(--rotation));
+            transition: transform 0.3s ease;
+        }
+
+        .emoji-item:hover {
+            transform: rotate(0deg) scale(1.2);
         }
 
         .level-selector {
@@ -130,39 +141,65 @@
             box-shadow: 0 6px 0 #1899D6;
         }
 
-        .word-display {
+        .start-btn {
+            background: #58CC02;
+            color: #FFFFFF;
+            border: 2px solid #58A700;
+            padding: 16px 40px;
+            font-size: 1.2em;
+            border-radius: 16px;
+            cursor: pointer;
+            font-weight: 700;
+            display: block;
+            margin: 20px auto;
+            box-shadow: 0 4px 0 #58A700;
+            transition: all 0.2s ease;
+        }
+
+        .start-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #58A700;
+        }
+
+        .start-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #58A700;
+        }
+
+        /* Page 2 styles */
+        .word-card {
             background: #F7F7F7;
             border-radius: 16px;
             padding: 25px;
-            margin: 20px 0;
+            margin: 15px 0;
             text-align: center;
             border: 2px solid #E5E5E5;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .word-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #E5E5E5;
+        }
+
+        .word-card:active {
+            transform: translateY(2px);
         }
 
         .word-text {
-            font-size: 2.8em;
+            font-size: 3em;
             font-weight: 800;
             color: #4C4C4C;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             letter-spacing: 1px;
         }
 
         .word-translation {
             font-size: 1.5em;
             color: #777777;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
             font-weight: 600;
-        }
-
-        .word-example {
-            font-size: 1em;
-            color: #999999;
-            font-style: italic;
-            margin-bottom: 15px;
-            padding: 10px;
-            background: #FFFFFF;
-            border-radius: 10px;
-            border: 1px solid #E5E5E5;
         }
 
         .word-type {
@@ -175,28 +212,96 @@
             font-weight: 600;
         }
 
-        .sound-btn {
+        .example-card {
+            background: #F7F7F7;
+            border-radius: 16px;
+            padding: 25px;
+            margin: 15px 0;
+            text-align: center;
+            border: 2px solid #E5E5E5;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .example-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #E5E5E5;
+        }
+
+        .example-card:active {
+            transform: translateY(2px);
+        }
+
+        .example-text {
+            font-size: 1.6em;
+            color: #4C4C4C;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .mic-btn {
             background: #FFC800;
             border: 2px solid #DEA600;
             color: #FFFFFF;
-            padding: 12px 25px;
-            border-radius: 16px;
+            padding: 15px 30px;
+            border-radius: 50px;
             cursor: pointer;
-            font-size: 1.3em;
-            margin-top: 15px;
+            font-size: 1.5em;
+            margin: 15px auto;
+            display: block;
             transition: all 0.2s ease;
             font-weight: 700;
             box-shadow: 0 4px 0 #DEA600;
         }
 
-        .sound-btn:hover {
+        .mic-btn:hover {
             transform: translateY(-2px);
             box-shadow: 0 6px 0 #DEA600;
         }
 
-        .sound-btn:active {
+        .mic-btn:active {
             transform: translateY(2px);
             box-shadow: 0 2px 0 #DEA600;
+        }
+
+        .mic-btn.recording {
+            background: #FF4B4B;
+            border-color: #E53939;
+            box-shadow: 0 4px 0 #E53939;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .score-display {
+            text-align: center;
+            padding: 15px;
+            border-radius: 16px;
+            margin: 15px 0;
+            font-size: 1.2em;
+            font-weight: 700;
+            display: none;
+        }
+
+        .score-display.good {
+            background: #58CC02;
+            color: #FFFFFF;
+            border: 2px solid #58A700;
+        }
+
+        .score-display.average {
+            background: #FFC800;
+            color: #FFFFFF;
+            border: 2px solid #DEA600;
+        }
+
+        .score-display.poor {
+            background: #FF4B4B;
+            color: #FFFFFF;
+            border: 2px solid #E53939;
         }
 
         .nav-buttons {
@@ -263,134 +368,15 @@
             box-shadow: 0 6px 0 #1899D6;
         }
 
-        .quiz-area {
-            background: #F7F7F7;
-            border-radius: 16px;
-            padding: 20px;
-            margin: 20px 0;
-            border: 2px solid #E5E5E5;
-        }
-
-        .question {
-            text-align: center;
-            color: #4C4C4C;
-            font-size: 1.3em;
-            margin-bottom: 15px;
-            font-weight: 700;
-        }
-
-        .options {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 12px;
-        }
-
-        .option-btn {
-            padding: 18px;
-            font-size: 1em;
-            border: 2px solid #E5E5E5;
-            border-radius: 16px;
-            cursor: pointer;
-            font-weight: 700;
-            color: #4C4C4C;
-            transition: all 0.2s ease;
-            background: #FFFFFF;
-            box-shadow: 0 4px 0 #E5E5E5;
-        }
-
-        .option-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 0 #E5E5E5;
-        }
-
-        .option-btn:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 0 #E5E5E5;
-        }
-
-        .option-btn.correct {
-            background: #58CC02;
-            color: #FFFFFF;
-            border-color: #58A700;
-            box-shadow: 0 4px 0 #58A700;
-        }
-
-        .option-btn.correct:hover {
-            box-shadow: 0 6px 0 #58A700;
-        }
-
-        .option-btn.wrong {
+        .nav-btn.back {
             background: #FF4B4B;
             color: #FFFFFF;
             border-color: #E53939;
             box-shadow: 0 4px 0 #E53939;
-            opacity: 0.8;
         }
 
-        .option-btn.wrong:hover {
+        .nav-btn.back:hover {
             box-shadow: 0 6px 0 #E53939;
-        }
-
-        .result {
-            text-align: center;
-            padding: 15px;
-            border-radius: 16px;
-            margin: 15px 0;
-            font-size: 1.1em;
-            font-weight: 700;
-            display: none;
-        }
-
-        .result.correct {
-            background: #58CC02;
-            color: #FFFFFF;
-            border: 2px solid #58A700;
-        }
-
-        .result.wrong {
-            background: #FF4B4B;
-            color: #FFFFFF;
-            border: 2px solid #E53939;
-        }
-
-        .next-btn {
-            background: #1CB0F6;
-            color: #FFFFFF;
-            border: 2px solid #1899D6;
-            padding: 14px 30px;
-            font-size: 1.1em;
-            border-radius: 16px;
-            cursor: pointer;
-            font-weight: 700;
-            display: block;
-            margin: 15px auto;
-            box-shadow: 0 4px 0 #1899D6;
-            transition: all 0.2s ease;
-        }
-
-        .next-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 0 #1899D6;
-        }
-
-        .next-btn:active {
-            transform: translateY(2px);
-            box-shadow: 0 2px 0 #1899D6;
-        }
-
-        .score {
-            text-align: center;
-            color: #4C4C4C;
-            background: #F7F7F7;
-            border: 2px solid #E5E5E5;
-            padding: 15px;
-            border-radius: 16px;
-            margin: 15px 0;
-        }
-
-        .stars {
-            font-size: 1.5em;
-            margin-bottom: 8px;
         }
 
         .progress {
@@ -416,33 +402,12 @@
             transition: width 0.3s ease;
         }
 
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-15px); }
+        .page {
+            display: none;
         }
 
-        @keyframes shake {
-            0%, 100% { transform: translateX(0); }
-            25% { transform: translateX(-8px); }
-            75% { transform: translateX(8px); }
-        }
-
-        @keyframes pop {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
-        .bounce {
-            animation: bounce 0.6s ease;
-        }
-
-        .shake {
-            animation: shake 0.6s ease;
-        }
-
-        .pop {
-            animation: pop 0.3s ease;
+        .page.active {
+            display: block;
         }
 
         @media (max-width: 400px) {
@@ -455,15 +420,11 @@
             }
 
             .word-text {
-                font-size: 2.2em;
+                font-size: 2.5em;
             }
 
-            .word-translation {
-                font-size: 1.2em;
-            }
-
-            .options {
-                grid-template-columns: 1fr;
+            .example-text {
+                font-size: 1.3em;
             }
 
             .level-btn, .mode-btn {
@@ -475,59 +436,54 @@
 </head>
 <body>
     <div class="container">
-        <div class="emoji-decoration">🌟🎈🎉🎈🌟</div>
-        <h1>英语词汇小测试</h1>
-        <div class="emoji-decoration">🐼🦊🐰🐻🐨</div>
-        
-        <div class="level-selector">
-            <button class="level-btn active" onclick="selectLevel(1)">Level 1</button>
-            <button class="level-btn" onclick="selectLevel(2)">Level 2</button>
-            <button class="level-btn" onclick="selectLevel(3)">Level 3</button>
-        </div>
-
-        <div class="mode-selector">
-            <button class="mode-btn active" onclick="selectMode('learn')">📖 学习</button>
-            <button class="mode-btn" onclick="selectMode('quiz')">🎯 测试</button>
-        </div>
-
-        <div class="word-display" id="wordDisplay">
-            <div class="word-text" id="wordText">the</div>
-            <div class="word-translation" id="wordTranslation">这/那</div>
-            <div class="word-example" id="wordExample">The cat is black.</div>
-            <div class="word-type" id="wordType">article</div>
-            <button class="sound-btn" onclick="playWordSound()" title="听发音">🔊</button>
-        </div>
-
-        <div class="quiz-area" id="quizArea" style="display: none;">
-            <div class="question" id="question">这个单词的意思是？</div>
-            <div class="options" id="options">
-                <button class="option-btn" onclick="checkAnswer(0)">选项1</button>
-                <button class="option-btn" onclick="checkAnswer(1)">选项2</button>
-                <button class="option-btn" onclick="checkAnswer(2)">选项3</button>
-                <button class="option-btn" onclick="checkAnswer(3)">选项4</button>
+        <!-- Page 1: Selection -->
+        <div class="page active" id="page1">
+            <div class="emoji-decoration" id="emojiDecoration"></div>
+            <h1>英语词汇小测试</h1>
+            
+            <div class="level-selector">
+                <button class="level-btn active" onclick="selectLevel(1)">Level 1</button>
+                <button class="level-btn" onclick="selectLevel(2)">Level 2</button>
+                <button class="level-btn" onclick="selectLevel(3)">Level 3</button>
             </div>
-        </div>
 
-        <div class="result" id="result"></div>
-
-        <button class="next-btn" onclick="nextWord()" id="nextBtn">下一个 ➡️</button>
-
-        <div class="nav-buttons">
-            <button class="nav-btn prev" onclick="prevWord()">⬅️ 上一个</button>
-            <button class="nav-btn shuffle" onclick="shuffleWords()">🔀 打乱</button>
-            <button class="nav-btn next" onclick="nextWord()">下一个 ➡️</button>
-        </div>
-
-        <div class="progress">
-            <div id="progressText">1 / 50</div>
-            <div class="progress-bar">
-                <div class="progress-fill" id="progressFill" style="width: 2%"></div>
+            <div class="mode-selector">
+                <button class="mode-btn active" onclick="selectMode('learn')">📖 学习</button>
+                <button class="mode-btn" onclick="selectMode('quiz')">🎯 测试</button>
             </div>
+
+            <button class="start-btn" onclick="goToPage2()">开始学习 🚀</button>
         </div>
 
-        <div class="score" id="scoreArea" style="display: none;">
-            <div class="stars">⭐⭐⭐</div>
-            <div>得分: <span id="score">0</span> / <span id="total">0</span></div>
+        <!-- Page 2: Learning -->
+        <div class="page" id="page2">
+            <div class="word-card" onclick="playWordSound()">
+                <div class="word-text" id="wordText">the</div>
+                <div class="word-translation" id="wordTranslation">这/那</div>
+                <div class="word-type" id="wordType">article</div>
+            </div>
+
+            <div class="example-card" onclick="playExampleSound()">
+                <div class="example-text" id="wordExample">The cat is black.</div>
+            </div>
+
+            <button class="mic-btn" id="micBtn" onclick="toggleRecording()">🎤 录音打分</button>
+
+            <div class="score-display" id="scoreDisplay"></div>
+
+            <div class="nav-buttons">
+                <button class="nav-btn back" onclick="goToPage1()">⬅️ 返回</button>
+                <button class="nav-btn prev" onclick="prevWord()">⬅️ 上一个</button>
+                <button class="nav-btn shuffle" onclick="shuffleWords()">🔀 打乱</button>
+                <button class="nav-btn next" onclick="nextWord()">下一个 ➡️</button>
+            </div>
+
+            <div class="progress">
+                <div id="progressText">1 / 50</div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 2%"></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -538,9 +494,9 @@
         let currentMode = 'learn';
         let currentWords = [];
         let currentIndex = 0;
-        let score = 0;
-        let total = 0;
         let shuffled = false;
+        let isRecording = false;
+        let recognition = null;
 
         // Load words from JSON file
         async function loadWords() {
@@ -548,7 +504,6 @@
                 const response = await fetch('words.json');
                 wordData = await response.json();
                 currentWords = wordData.level1;
-                updateDisplay();
             } catch (error) {
                 console.error('Error loading words:', error);
                 // Fallback to hardcoded words if file fails to load
@@ -562,8 +517,19 @@
                     ]
                 };
                 currentWords = wordData.level1;
-                updateDisplay();
             }
+        }
+
+        // Page navigation
+        function goToPage1() {
+            document.getElementById('page1').classList.add('active');
+            document.getElementById('page2').classList.remove('active');
+        }
+
+        function goToPage2() {
+            document.getElementById('page1').classList.remove('active');
+            document.getElementById('page2').classList.add('active');
+            updateDisplay();
         }
 
         // Select level
@@ -583,9 +549,6 @@
             
             currentIndex = 0;
             shuffled = false;
-            score = 0;
-            total = 0;
-            updateDisplay();
         }
 
         // Select mode
@@ -595,24 +558,6 @@
                 btn.classList.remove('active');
             });
             event.target.classList.add('active');
-            
-            const wordDisplay = document.getElementById('wordDisplay');
-            const quizArea = document.getElementById('quizArea');
-            const scoreArea = document.getElementById('scoreArea');
-            const nextBtn = document.getElementById('nextBtn');
-            
-            if (mode === 'learn') {
-                wordDisplay.style.display = 'block';
-                quizArea.style.display = 'none';
-                scoreArea.style.display = 'none';
-                nextBtn.style.display = 'block';
-            } else {
-                wordDisplay.style.display = 'none';
-                quizArea.style.display = 'block';
-                scoreArea.style.display = 'block';
-                nextBtn.style.display = 'none';
-                startQuiz();
-            }
         }
 
         // Update display
@@ -628,6 +573,9 @@
             const progress = ((currentIndex + 1) / currentWords.length) * 100;
             document.getElementById('progressText').textContent = `${currentIndex + 1} / ${currentWords.length}`;
             document.getElementById('progressFill').style.width = `${progress}%`;
+            
+            // Hide score display when changing words
+            document.getElementById('scoreDisplay').style.display = 'none';
         }
 
         // Play word sound
@@ -637,6 +585,36 @@
                 const utterance = new SpeechSynthesisUtterance(word.word);
                 utterance.lang = 'en-US';
                 utterance.rate = 0.7;
+                utterance.pitch = 1.0;
+                utterance.volume = 1.0;
+                
+                // Try to get English voice
+                const voices = window.speechSynthesis.getVoices();
+                let englishVoice = null;
+                for (let voice of voices) {
+                    if (voice.lang.includes('en') || voice.lang.includes('US') || voice.lang.includes('GB')) {
+                        englishVoice = voice;
+                        if (voice.name.includes('Google') || voice.name.includes('Microsoft')) {
+                            break;
+                        }
+                    }
+                }
+                
+                if (englishVoice) {
+                    utterance.voice = englishVoice;
+                }
+                
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Play example sentence sound
+        function playExampleSound() {
+            if ('speechSynthesis' in window) {
+                const word = currentWords[currentIndex];
+                const utterance = new SpeechSynthesisUtterance(word.example);
+                utterance.lang = 'en-US';
+                utterance.rate = 0.6;
                 utterance.pitch = 1.0;
                 utterance.volume = 1.0;
                 
@@ -689,135 +667,120 @@
             updateDisplay();
         }
 
-        // Quiz mode
-        function startQuiz() {
-            currentIndex = 0;
-            score = 0;
-            total = 0;
-            document.getElementById('score').textContent = score;
-            document.getElementById('total').textContent = total;
-            showQuizQuestion();
-        }
-
-        function showQuizQuestion() {
-            if (currentIndex >= currentWords.length) {
-                alert(`测试完成！\n得分: ${score} / ${total}\n正确率: ${total > 0 ? Math.round((score / total) * 100) : 0}%`);
-                currentIndex = 0;
-                score = 0;
-                total = 0;
-                selectMode('learn');
+        // Recording and pronunciation scoring
+        function toggleRecording() {
+            if (!('webkitSpeechRecognition' in window) && !('SpeechRecognition' in window)) {
+                alert('您的浏览器不支持语音识别功能。请使用Chrome或Safari浏览器。');
                 return;
             }
 
-            const word = currentWords[currentIndex];
-            document.getElementById('question').textContent = `"${word.word}" 的意思是？`;
+            const micBtn = document.getElementById('micBtn');
             
-            // Generate options
-            const options = [word.translation];
-            const allTranslations = currentWords.map(w => w.translation).filter(t => t !== word.translation);
-            
-            while (options.length < 4 && allTranslations.length > 0) {
-                const randomIndex = Math.floor(Math.random() * allTranslations.length);
-                options.push(allTranslations.splice(randomIndex, 1)[0]);
-            }
-            
-            // Shuffle options
-            for (let i = options.length - 1; i > 0; i--) {
-                const j = Math.floor(Math.random() * (i + 1));
-                [options[i], options[j]] = [options[j], options[i]];
-            }
-            
-            const optionBtns = document.querySelectorAll('.option-btn');
-            optionBtns.forEach((btn, index) => {
-                btn.textContent = options[index];
-                btn.className = 'option-btn';
-                btn.disabled = false;
-            });
-            
-            document.getElementById('result').style.display = 'none';
-            document.getElementById('nextBtn').style.display = 'none';
-        }
-
-        function checkAnswer(selectedIndex) {
-            const word = currentWords[currentIndex];
-            const optionBtns = document.querySelectorAll('.option-btn');
-            const selectedText = optionBtns[selectedIndex].textContent;
-            
-            total++;
-            
-            const resultDiv = document.getElementById('result');
-            resultDiv.style.display = 'block';
-            
-            optionBtns.forEach(btn => {
-                btn.disabled = true;
-            });
-            
-            if (selectedText === word.translation) {
-                score++;
-                resultDiv.textContent = '🎉 答对了！太棒了！ 🎉';
-                resultDiv.className = 'result correct';
-                optionBtns[selectedIndex].classList.add('correct');
-                document.getElementById('wordText').classList.add('bounce');
-                playCorrectSound();
+            if (isRecording) {
+                // Stop recording
+                if (recognition) {
+                    recognition.stop();
+                }
+                isRecording = false;
+                micBtn.classList.remove('recording');
+                micBtn.textContent = '🎤 录音打分';
             } else {
-                resultDiv.textContent = `😅 答错了！正确答案是：${word.translation}`;
-                resultDiv.className = 'result wrong';
-                optionBtns[selectedIndex].classList.add('wrong');
-                // Highlight correct answer
-                optionBtns.forEach(btn => {
-                    if (btn.textContent === word.translation) {
-                        btn.classList.add('correct');
+                // Start recording
+                const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+                recognition = new SpeechRecognition();
+                recognition.lang = 'en-US';
+                recognition.continuous = false;
+                recognition.interimResults = false;
+
+                recognition.onstart = function() {
+                    isRecording = true;
+                    micBtn.classList.add('recording');
+                    micBtn.textContent = '🔴 录音中...';
+                };
+
+                recognition.onresult = function(event) {
+                    const transcript = event.results[0][0].transcript.toLowerCase();
+                    const word = currentWords[currentIndex].word.toLowerCase();
+                    const confidence = event.results[0][0].confidence;
+                    
+                    // Simple scoring based on similarity
+                    let score = 0;
+                    if (transcript === word) {
+                        score = 100;
+                    } else if (transcript.includes(word)) {
+                        score = 80;
+                    } else if (word.includes(transcript)) {
+                        score = 60;
+                    } else {
+                        // Calculate similarity based on character overlap
+                        const similarity = calculateSimilarity(transcript, word);
+                        score = Math.round(similarity * 100);
                     }
-                });
-                document.getElementById('wordText').classList.add('shake');
-                playWrongSound();
+
+                    displayScore(score);
+                };
+
+                recognition.onerror = function(event) {
+                    console.error('Speech recognition error:', event.error);
+                    isRecording = false;
+                    micBtn.classList.remove('recording');
+                    micBtn.textContent = '🎤 录音打分';
+                    alert('语音识别出错，请重试。');
+                };
+
+                recognition.onend = function() {
+                    isRecording = false;
+                    micBtn.classList.remove('recording');
+                    micBtn.textContent = '🎤 录音打分';
+                };
+
+                recognition.start();
+            }
+        }
+
+        // Calculate similarity between two strings
+        function calculateSimilarity(str1, str2) {
+            const longer = str1.length > str2.length ? str1 : str2;
+            const shorter = str1.length > str2.length ? str2 : str1;
+            
+            if (longer.length === 0) return 1.0;
+            
+            const costs = [];
+            for (let i = 0; i <= longer.length; i++) {
+                let lastValue = i;
+                for (let j = 0; j <= shorter.length; j++) {
+                    if (i === 0) {
+                        costs[j] = j;
+                    } else if (j > 0) {
+                        let newValue = costs[j - 1];
+                        if (longer.charAt(i - 1) !== shorter.charAt(j - 1)) {
+                            newValue = Math.min(Math.min(newValue, lastValue), costs[j]) + 1;
+                        }
+                        costs[j - 1] = lastValue;
+                        lastValue = newValue;
+                    }
+                }
+                if (i > 0) costs[shorter.length] = lastValue;
             }
             
-            document.getElementById('score').textContent = score;
-            document.getElementById('total').textContent = total;
-            document.getElementById('nextBtn').style.display = 'block';
-            
-            setTimeout(() => {
-                document.getElementById('wordText').classList.remove('bounce', 'shake');
-            }, 500);
+            return 1 - costs[shorter.length] / longer.length;
         }
 
-        // Sound effects
-        function playCorrectSound() {
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
+        // Display score
+        function displayScore(score) {
+            const scoreDisplay = document.getElementById('scoreDisplay');
+            scoreDisplay.style.display = 'block';
             
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            oscillator.frequency.setValueAtTime(523.25, audioContext.currentTime); // C5
-            oscillator.frequency.setValueAtTime(659.25, audioContext.currentTime + 0.1); // E5
-            oscillator.frequency.setValueAtTime(783.99, audioContext.currentTime + 0.2); // G5
-            
-            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-            
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.3);
-        }
-
-        function playWrongSound() {
-            const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            oscillator.frequency.setValueAtTime(200, audioContext.currentTime);
-            oscillator.frequency.setValueAtTime(150, audioContext.currentTime + 0.1);
-            
-            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + 0.3);
-            
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + 0.3);
+            if (score >= 80) {
+                scoreDisplay.className = 'score-display good';
+                scoreDisplay.textContent = `🎉 太棒了！得分: ${score}`;
+            } else if (score >= 60) {
+                scoreDisplay.className = 'score-display average';
+                scoreDisplay.textContent = `👍 不错！得分: ${score}`;
+            } else {
+                scoreDisplay.className = 'score-display poor';
+                scoreDisplay.textContent = `💪 继续努力！得分: ${score}`;
+            }
         }
 
         // Initialize
@@ -829,6 +792,78 @@
                 window.speechSynthesis.getVoices();
             };
         }
+
+        // Generate emoji decoration
+        function generateEmojiDecoration() {
+            const emojis = [
+                // Animals
+                '🐶', '🐱', '🐭', '🐹', '🐰', '🦊', '🐻', '🐼', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐵',
+                '🐔', '🐧', '🐦', '🐤', '🦆', '🦅', '🦉', '🦇', '🐺', '🐗', '🐴', '🦄', '🐝', '🐛', '🦋',
+                '🐌', '🐞', '🐜', '🦟', '🦗', '🕷️', '🕸️', '🦂', '🐢', '🐍', '🦎', '🦖', '🦕', '🐙', '🦑',
+                '🦐', '🦞', '🦀', '🐡', '🐠', '🐟', '🐬', '🐳', '🐋', '🦈', '🐊', '🐅', '🐆', '🦓', '🦍',
+                // Food
+                '🍎', '🍐', '🍊', '🍋', '🍌', '🍉', '🍇', '🍓', '🫐', '🍈', '🍒', '🍑', '🥭', '🍍', '🥥',
+                '🥝', '🍅', '🍆', '🥑', '🥦', '🥬', '🥒', '🌶️', '🫑', '🌽', '🥕', '🫒', '🧄', '🧅', '🥔',
+                '🍠', '🥐', '🥯', '🍞', '🥖', '🥨', '🧀', '🥚', '🍳', '🧈', '🥞', '🧇', '🥓', '🥩', '🍗',
+                '🍖', '🦴', '🌭', '🍔', '🍟', '🍕', '🫓', '🥪', '🥙', '🧆', '🌮', '🌯', '🫔', '🥗', '🥘',
+                '🫕', '🍝', '🍜', '🍲', '🍛', '🍣', '🍱', '🥟', '🦪', '🍤', '🍙', '🍚', '🍘', '🍥', '🥠',
+                // Objects
+                '🎈', '🎉', '🎊', '🎁', '🎀', '🎗️', '🎟️', '🎫', '🎖️', '🏆', '🏅', '🥇', '🥈', '🥉', '⚽',
+                '🏀', '🏈', '⚾', '🥎', '🎾', '🏐', '🏉', '🥏', '🎱', '🪀', '🏓', '🏸', '🏒', '🏑', '🥍',
+                '🏏', '🪃', '🥅', '⛳', '🪁', '🏹', '🎣', '🤿', '🥊', '🥋', '🎽', '🛹', '🛼', '🛷', '⛸️',
+                '🥌', '🎿', '⛷️', '🏂', '🪂', '🏋️', '🤼', '🤸', '🤺', '⛹️', '🤾', '🏌️', '🏇', '🧘', '🏄',
+                '🏊', '🤽', '🚣', '🧗', '🚴', '🚵', '🎪', '🎭', '🎨', '🎬', '🎤', '🎧', '🎼', '🎹', '🥁',
+                '🪘', '🎷', '🎺', '🪗', '🎸', '🪕', '🎻', '🎲', '♟️', '🎯', '🎳', '🎮', '🎰', '🧩', '🧸'
+            ];
+
+            const container = document.getElementById('emojiDecoration');
+            const usedEmojis = new Set();
+            const numEmojis = 25;
+
+            for (let i = 0; i < numEmojis; i++) {
+                let emoji;
+                do {
+                    emoji = emojis[Math.floor(Math.random() * emojis.length)];
+                } while (usedEmojis.has(emoji));
+                usedEmojis.add(emoji);
+
+                const emojiItem = document.createElement('div');
+                emojiItem.className = 'emoji-item';
+                emojiItem.textContent = emoji;
+
+                // Random rotation between -20 and 20 degrees
+                const rotation = (Math.random() - 0.5) * 40;
+                emojiItem.style.setProperty('--rotation', `${rotation}deg`);
+
+                // Position around the edges
+                const position = Math.random();
+                const edge = Math.floor(Math.random() * 4); // 0: top, 1: right, 2: bottom, 3: left
+
+                switch (edge) {
+                    case 0: // top
+                        emojiItem.style.top = `${Math.random() * 20}%`;
+                        emojiItem.style.left = `${Math.random() * 100}%`;
+                        break;
+                    case 1: // right
+                        emojiItem.style.top = `${Math.random() * 100}%`;
+                        emojiItem.style.right = '0';
+                        break;
+                    case 2: // bottom
+                        emojiItem.style.bottom = `${Math.random() * 20}%`;
+                        emojiItem.style.left = `${Math.random() * 100}%`;
+                        break;
+                    case 3: // left
+                        emojiItem.style.top = `${Math.random() * 100}%`;
+                        emojiItem.style.left = '0';
+                        break;
+                }
+
+                container.appendChild(emojiItem);
+            }
+        }
+
+        // Generate emojis on load
+        window.addEventListener('load', generateEmojiDecoration);
     </script>
 </body>
 </html>
