@@ -2,7 +2,9 @@
 <html lang="zh-CN">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="default">
     <title>英语词汇小测试 - 一年级版</title>
     <style>
         * {
@@ -26,25 +28,34 @@
             background: #FFFFFF;
             border-radius: 20px;
             padding: 20px;
+            padding-top: 60px;
+            padding-bottom: 60px;
+            padding-left: 40px;
+            padding-right: 40px;
             max-width: 500px;
             width: 100%;
             box-shadow: 0 8px 30px rgba(0, 0, 0, 0.12);
             border: 2px solid #E5E5E5;
+            position: relative;
         }
 
         h1 {
             text-align: center;
             color: #4C4C4C;
             font-size: 1.8em;
+            margin-top: 50px;
             margin-bottom: 15px;
             font-weight: 700;
         }
 
         .emoji-decoration {
-            position: fixed;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
             font-size: 1.8em;
             pointer-events: none;
-            opacity: 0.6;
             z-index: 0;
         }
 
@@ -56,6 +67,90 @@
 
         .emoji-item:hover {
             transform: rotate(0deg) scale(1.2);
+        }
+
+        @keyframes twinkle {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.4; }
+        }
+
+        .emoji-item {
+            animation: twinkle 3s ease-in-out infinite;
+        }
+
+        .quiz-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 12px;
+            margin: 20px 0;
+        }
+
+        .quiz-option-btn {
+            padding: 18px;
+            font-size: 1em;
+            border: 2px solid #E5E5E5;
+            border-radius: 16px;
+            cursor: pointer;
+            font-weight: 700;
+            color: #4C4C4C;
+            transition: all 0.2s ease;
+            background: #FFFFFF;
+            box-shadow: 0 4px 0 #E5E5E5;
+        }
+
+        .quiz-option-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #E5E5E5;
+        }
+
+        .quiz-option-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #E5E5E5;
+        }
+
+        .quiz-option-btn.correct {
+            background: #58CC02;
+            color: #FFFFFF;
+            border-color: #58A700;
+            box-shadow: 0 4px 0 #58A700;
+        }
+
+        .quiz-option-btn.correct:hover {
+            box-shadow: 0 6px 0 #58A700;
+        }
+
+        .quiz-option-btn.wrong {
+            background: #FF4B4B;
+            color: #FFFFFF;
+            border-color: #E53939;
+            box-shadow: 0 4px 0 #E53939;
+            opacity: 0.8;
+        }
+
+        .quiz-option-btn.wrong:hover {
+            box-shadow: 0 6px 0 #E53939;
+        }
+
+        .quiz-result {
+            text-align: center;
+            padding: 15px;
+            border-radius: 16px;
+            margin: 15px 0;
+            font-size: 1.1em;
+            font-weight: 700;
+            display: none;
+        }
+
+        .quiz-result.correct {
+            background: #58CC02;
+            color: #FFFFFF;
+            border: 2px solid #58A700;
+        }
+
+        .quiz-result.wrong {
+            background: #FF4B4B;
+            color: #FFFFFF;
+            border: 2px solid #E53939;
         }
 
         .level-selector {
@@ -402,6 +497,134 @@
             transition: width 0.3s ease;
         }
 
+        .stats-container {
+            background: #F7F7F7;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 15px 0;
+            border: 2px solid #E5E5E5;
+        }
+
+        .stats-title {
+            text-align: center;
+            font-size: 1.2em;
+            font-weight: 700;
+            color: #4C4C4C;
+            margin-bottom: 15px;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 10px;
+        }
+
+        .stat-item {
+            background: #FFFFFF;
+            padding: 12px;
+            border-radius: 12px;
+            border: 2px solid #E5E5E5;
+            text-align: center;
+        }
+
+        .stat-level {
+            font-size: 0.9em;
+            font-weight: 700;
+            color: #777777;
+            margin-bottom: 5px;
+        }
+
+        .stat-accuracy {
+            font-size: 1.3em;
+            font-weight: 800;
+            color: #4C4C4C;
+        }
+
+        .stat-accuracy.high {
+            color: #58CC02;
+        }
+
+        .stat-accuracy.medium {
+            color: #FFC800;
+        }
+
+        .stat-accuracy.low {
+            color: #FF4B4B;
+        }
+
+        .stat-words {
+            font-size: 0.8em;
+            color: #777777;
+            margin-top: 3px;
+        }
+
+        .vocab-estimate {
+            text-align: center;
+            padding: 15px;
+            background: linear-gradient(135deg, #1CB0F6 0%, #58CC02 100%);
+            border-radius: 16px;
+            margin: 15px 0;
+            color: #FFFFFF;
+        }
+
+        .vocab-estimate-title {
+            font-size: 1em;
+            font-weight: 600;
+            margin-bottom: 5px;
+        }
+
+        .vocab-estimate-value {
+            font-size: 2em;
+            font-weight: 800;
+        }
+
+        .show-stats-btn {
+            background: #FF9600;
+            color: #FFFFFF;
+            border: 2px solid #E58600;
+            padding: 12px 25px;
+            border-radius: 16px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 700;
+            display: block;
+            margin: 15px auto;
+            box-shadow: 0 4px 0 #E58600;
+            transition: all 0.2s ease;
+        }
+
+        .show-stats-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 0 #E58600;
+        }
+
+        .show-stats-btn:active {
+            transform: translateY(2px);
+            box-shadow: 0 2px 0 #E58600;
+        }
+
+        .chart-container {
+            background: #FFFFFF;
+            border-radius: 16px;
+            padding: 20px;
+            margin: 15px 0;
+            border: 2px solid #E5E5E5;
+        }
+
+        .chart-title {
+            text-align: center;
+            font-size: 1.1em;
+            font-weight: 700;
+            color: #4C4C4C;
+            margin-bottom: 15px;
+        }
+
+        canvas {
+            width: 100%;
+            height: 200px;
+            display: block;
+        }
+
         .page {
             display: none;
         }
@@ -413,6 +636,8 @@
         @media (max-width: 400px) {
             .container {
                 padding: 15px;
+                padding-top: 50px;
+                padding-bottom: 50px;
             }
 
             h1 {
@@ -431,6 +656,62 @@
                 padding: 10px 15px;
                 font-size: 0.85em;
             }
+
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .emoji-decoration {
+                display: none;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                padding: 15px;
+                padding-top: 50px;
+                padding-bottom: 50px;
+            }
+
+            .quiz-options {
+                grid-template-columns: 1fr;
+            }
+
+            .stats-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        /* Touch-friendly button sizes */
+        @media (hover: none) and (pointer: coarse) {
+            .quiz-option-btn,
+            .level-btn,
+            .mode-btn,
+            .nav-btn,
+            .start-btn,
+            .mic-btn,
+            .show-stats-btn {
+                min-height: 48px;
+                min-width: 48px;
+            }
+
+            .word-card,
+            .example-card {
+                min-height: 80px;
+            }
+        }
+
+        /* Prevent zoom on input focus for iOS */
+        @supports (-webkit-touch-callout: none) {
+            input,
+            textarea,
+            select {
+                font-size: 16px !important;
+            }
         }
     </style>
 </head>
@@ -442,9 +723,14 @@
             <h1>英语词汇小测试</h1>
             
             <div class="level-selector">
-                <button class="level-btn active" onclick="selectLevel(1)">Level 1</button>
-                <button class="level-btn" onclick="selectLevel(2)">Level 2</button>
-                <button class="level-btn" onclick="selectLevel(3)">Level 3</button>
+                <select id="levelSelect" onchange="selectLevel(parseInt(this.value))" style="padding: 12px 20px; font-size: 0.95em; border: 2px solid #E5E5E5; border-radius: 16px; cursor: pointer; font-weight: 700; color: #4C4C4C; background: #FFFFFF; box-shadow: 0 4px 0 #E5E5E5; min-width: 150px;">
+                    <option value="1">Level 1 (300词)</option>
+                    <option value="2">Level 2 (400词)</option>
+                    <option value="3">Level 3 (500词)</option>
+                    <option value="4">Level 4 (600词)</option>
+                    <option value="5">Level 5 (600词)</option>
+                    <option value="6">Level 6 (547词)</option>
+                </select>
             </div>
 
             <div class="mode-selector">
@@ -452,36 +738,91 @@
                 <button class="mode-btn" onclick="selectMode('quiz')">🎯 测试</button>
             </div>
 
+            <button class="show-stats-btn" onclick="toggleStats()">📊 查看统计</button>
+
+            <button class="show-stats-btn" onclick="startReviewMode()" id="reviewBtn" style="display: none;">🔄 复习待复习词汇</button>
+
+            <button class="show-stats-btn" onclick="showWrongAnswers()" id="wrongAnswersBtn" style="display: none;">📓 错题本</button>
+
+            <div id="statsContainer" style="display: none;">
+                <div class="vocab-estimate">
+                    <div class="vocab-estimate-title">📈 词汇量估算</div>
+                    <div class="vocab-estimate-value" id="vocabEstimate">0</div>
+                </div>
+                <div class="stats-container">
+                    <div class="stats-title">🎯 各级别掌握情况</div>
+                    <div class="stats-grid" id="statsGrid">
+                        <!-- Stats will be populated by JavaScript -->
+                    </div>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">📊 词汇量增长曲线</div>
+                    <canvas id="growthChart"></canvas>
+                </div>
+            </div>
+
             <button class="start-btn" onclick="goToPage2()">开始学习 🚀</button>
         </div>
 
         <!-- Page 2: Learning -->
         <div class="page" id="page2">
-            <div class="word-card" onclick="playWordSound()">
-                <div class="word-text" id="wordText">the</div>
-                <div class="word-translation" id="wordTranslation">这/那</div>
-                <div class="word-type" id="wordType">article</div>
+            <!-- Learn Mode -->
+            <div id="learnMode">
+                <div class="word-card" onclick="playWordSound()">
+                    <div class="word-text" id="wordText">the</div>
+                    <div class="word-translation" id="wordTranslation">这/那</div>
+                    <div class="word-type" id="wordType">article</div>
+                </div>
+
+                <div class="example-card" onclick="playExampleSound()">
+                    <div class="example-text" id="wordExample">The cat is black.</div>
+                </div>
+
+                <button class="mic-btn" id="micBtn" onclick="toggleRecording()">🎤 录音打分</button>
+
+                <div class="score-display" id="scoreDisplay"></div>
+
+                <div class="nav-buttons">
+                    <button class="nav-btn back" onclick="goToPage1()">⬅️ 返回</button>
+                    <button class="nav-btn prev" onclick="prevWord()">⬅️ 上一个</button>
+                    <button class="nav-btn shuffle" onclick="shuffleWords()">🔀 打乱</button>
+                    <button class="nav-btn next" onclick="nextWord()">下一个 ➡️</button>
+                </div>
+
+                <div class="progress">
+                    <div id="progressText">1 / 50</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progressFill" style="width: 2%"></div>
+                    </div>
+                </div>
             </div>
 
-            <div class="example-card" onclick="playExampleSound()">
-                <div class="example-text" id="wordExample">The cat is black.</div>
-            </div>
+            <!-- Quiz Mode -->
+            <div id="quizMode" style="display: none;">
+                <div class="word-card" onclick="playWordSound()">
+                    <div class="word-text" id="quizWordText">the</div>
+                    <div class="word-type" id="quizWordType">article</div>
+                </div>
 
-            <button class="mic-btn" id="micBtn" onclick="toggleRecording()">🎤 录音打分</button>
+                <div class="quiz-options" id="quizOptions">
+                    <button class="quiz-option-btn" onclick="checkQuizAnswer(0)">选项1</button>
+                    <button class="quiz-option-btn" onclick="checkQuizAnswer(1)">选项2</button>
+                    <button class="quiz-option-btn" onclick="checkQuizAnswer(2)">选项3</button>
+                    <button class="quiz-option-btn" onclick="checkQuizAnswer(3)">选项4</button>
+                </div>
 
-            <div class="score-display" id="scoreDisplay"></div>
+                <div class="quiz-result" id="quizResult"></div>
 
-            <div class="nav-buttons">
-                <button class="nav-btn back" onclick="goToPage1()">⬅️ 返回</button>
-                <button class="nav-btn prev" onclick="prevWord()">⬅️ 上一个</button>
-                <button class="nav-btn shuffle" onclick="shuffleWords()">🔀 打乱</button>
-                <button class="nav-btn next" onclick="nextWord()">下一个 ➡️</button>
-            </div>
+                <div class="nav-buttons">
+                    <button class="nav-btn back" onclick="goToPage1()">⬅️ 返回</button>
+                    <button class="nav-btn shuffle" onclick="shuffleWords()">🔀 打乱</button>
+                </div>
 
-            <div class="progress">
-                <div id="progressText">1 / 50</div>
-                <div class="progress-bar">
-                    <div class="progress-fill" id="progressFill" style="width: 2%"></div>
+                <div class="progress">
+                    <div id="quizProgressText">1 / 50</div>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="quizProgressFill" style="width: 2%"></div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -493,10 +834,30 @@
         let currentLevel = 1;
         let currentMode = 'learn';
         let currentWords = [];
+        let quizWords = [];
         let currentIndex = 0;
         let shuffled = false;
         let isRecording = false;
         let recognition = null;
+
+        // Quiz statistics tracking
+        let quizStats = {
+            level1: { correct: 0, total: 0 },
+            level2: { correct: 0, total: 0 },
+            level3: { correct: 0, total: 0 },
+            level4: { correct: 0, total: 0 },
+            level5: { correct: 0, total: 0 },
+            level6: { correct: 0, total: 0 }
+        };
+
+        // Vocabulary growth history
+        let growthHistory = [];
+
+        // Word learning and review tracking
+        let wordReviewData = {};
+
+        // Wrong answer notebook
+        let wrongAnswers = [];
 
         // Load words from JSON file
         async function loadWords() {
@@ -518,12 +879,19 @@
                 };
                 currentWords = wordData.level1;
             }
+
+            // Load quiz stats from localStorage
+            loadQuizStats();
+            loadGrowthHistory();
+            loadWordReviewData();
+            loadWrongAnswers();
         }
 
         // Page navigation
         function goToPage1() {
             document.getElementById('page1').classList.add('active');
             document.getElementById('page2').classList.remove('active');
+            checkDueWords();
         }
 
         function goToPage2() {
@@ -565,17 +933,155 @@
             if (currentWords.length === 0) return;
             
             const word = currentWords[currentIndex];
-            document.getElementById('wordText').textContent = word.word;
-            document.getElementById('wordTranslation').textContent = word.translation;
-            document.getElementById('wordExample').textContent = word.example;
-            document.getElementById('wordType').textContent = word.type;
             
-            const progress = ((currentIndex + 1) / currentWords.length) * 100;
-            document.getElementById('progressText').textContent = `${currentIndex + 1} / ${currentWords.length}`;
-            document.getElementById('progressFill').style.width = `${progress}%`;
+            if (currentMode === 'learn') {
+                document.getElementById('learnMode').style.display = 'block';
+                document.getElementById('quizMode').style.display = 'none';
+                
+                document.getElementById('wordText').textContent = word.word;
+                document.getElementById('wordTranslation').textContent = word.translation;
+                document.getElementById('wordExample').textContent = word.example;
+                document.getElementById('wordType').textContent = word.type;
+                
+                const progress = ((currentIndex + 1) / currentWords.length) * 100;
+                document.getElementById('progressText').textContent = `${currentIndex + 1} / ${currentWords.length}`;
+                document.getElementById('progressFill').style.width = `${progress}%`;
+                
+                // Hide score display when changing words
+                document.getElementById('scoreDisplay').style.display = 'none';
+            } else {
+                document.getElementById('learnMode').style.display = 'none';
+                document.getElementById('quizMode').style.display = 'block';
+                
+                // Generate 10 random quiz words if not already done
+                if (quizWords.length === 0) {
+                    generateQuizWords();
+                }
+                
+                const quizWord = quizWords[currentIndex];
+                document.getElementById('quizWordText').textContent = quizWord.word;
+                document.getElementById('quizWordType').textContent = quizWord.type;
+                
+                const progress = ((currentIndex + 1) / quizWords.length) * 100;
+                document.getElementById('quizProgressText').textContent = `${currentIndex + 1} / ${quizWords.length}`;
+                document.getElementById('quizProgressFill').style.width = `${progress}%`;
+                
+                // Generate quiz options
+                generateQuizOptions();
+                
+                // Hide result when changing words
+                document.getElementById('quizResult').style.display = 'none';
+            }
+        }
+
+        // Generate 10 random quiz words
+        function generateQuizWords() {
+            const shuffled = [...currentWords];
+            for (let i = shuffled.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+            }
+            quizWords = shuffled.slice(0, 10);
+            currentIndex = 0;
+        }
+
+        // Generate quiz options
+        function generateQuizOptions() {
+            const word = quizWords[currentIndex];
+            const options = [word.translation];
+            const allTranslations = currentWords.map(w => w.translation).filter(t => t !== word.translation);
             
-            // Hide score display when changing words
-            document.getElementById('scoreDisplay').style.display = 'none';
+            while (options.length < 4 && allTranslations.length > 0) {
+                const randomIndex = Math.floor(Math.random() * allTranslations.length);
+                options.push(allTranslations.splice(randomIndex, 1)[0]);
+            }
+            
+            // Shuffle options
+            for (let i = options.length - 1; i > 0; i--) {
+                const j = Math.floor(Math.random() * (i + 1));
+                [options[i], options[j]] = [options[j], options[i]];
+            }
+            
+            const optionBtns = document.querySelectorAll('.quiz-option-btn');
+            optionBtns.forEach((btn, index) => {
+                btn.textContent = options[index];
+                btn.className = 'quiz-option-btn';
+                btn.disabled = false;
+            });
+        }
+
+        // Check quiz answer
+        function checkQuizAnswer(selectedIndex) {
+            const word = quizWords[currentIndex];
+            const optionBtns = document.querySelectorAll('.quiz-option-btn');
+            const selectedText = optionBtns[selectedIndex].textContent;
+            
+            const resultDiv = document.getElementById('quizResult');
+            resultDiv.style.display = 'block';
+            
+            if (selectedText === word.translation) {
+                resultDiv.textContent = '🎉 答对了！太棒了！ 🎉';
+                resultDiv.className = 'quiz-result correct';
+                optionBtns[selectedIndex].classList.add('correct');
+                playCorrectSound();
+
+                // Update quiz stats
+                updateQuizStats(true);
+
+                // Disable all buttons temporarily
+                optionBtns.forEach(btn => {
+                    btn.disabled = true;
+                });
+
+                // Auto-advance to next word after 1 second
+                setTimeout(() => {
+                    if (currentIndex < quizWords.length - 1) {
+                        currentIndex++;
+                        updateDisplay();
+                    } else {
+                        // Quiz completed
+                        alert('🎉 测试完成！你真棒！');
+                        quizWords = [];
+                        currentIndex = 0;
+                        selectMode('learn');
+                    }
+                }, 1000);
+            } else {
+                resultDiv.textContent = `😅 答错了！再试一次`;
+                resultDiv.className = 'quiz-result wrong';
+                optionBtns[selectedIndex].classList.add('wrong');
+                playWrongSound();
+
+                // Update quiz stats (wrong answer)
+                updateQuizStats(false);
+
+                // Re-enable buttons for another attempt
+                optionBtns.forEach(btn => {
+                    btn.disabled = false;
+                });
+            }
+        }
+
+        // Play correct sound
+        function playCorrectSound() {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance('Correct!');
+                utterance.lang = 'en-US';
+                utterance.rate = 1.0;
+                utterance.pitch = 1.2;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Play wrong sound
+        function playWrongSound() {
+            if ('speechSynthesis' in window) {
+                const utterance = new SpeechSynthesisUtterance('Try again');
+                utterance.lang = 'en-US';
+                utterance.rate = 0.9;
+                utterance.pitch = 0.8;
+                window.speechSynthesis.speak(utterance);
+            }
         }
 
         // Play word sound
@@ -664,6 +1170,12 @@
             }
             currentIndex = 0;
             shuffled = true;
+            
+            // Reset quiz words if in quiz mode
+            if (currentMode === 'quiz') {
+                quizWords = [];
+            }
+            
             updateDisplay();
         }
 
@@ -770,7 +1282,7 @@
         function displayScore(score) {
             const scoreDisplay = document.getElementById('scoreDisplay');
             scoreDisplay.style.display = 'block';
-            
+
             if (score >= 80) {
                 scoreDisplay.className = 'score-display good';
                 scoreDisplay.textContent = `🎉 太棒了！得分: ${score}`;
@@ -783,8 +1295,587 @@
             }
         }
 
+        // Update quiz statistics
+        function updateQuizStats(correct) {
+            const levelKey = `level${currentLevel}`;
+            quizStats[levelKey].total++;
+            if (correct) {
+                quizStats[levelKey].correct++;
+                // Track word learning for Ebbinghaus review
+                const word = quizWords[currentIndex];
+                updateWordReview(word.word, correct);
+            } else {
+                // Add to wrong answers notebook
+                const word = quizWords[currentIndex];
+                addToWrongAnswers(word);
+            }
+            saveQuizStats();
+
+            // Update growth history after every 5 quiz attempts
+            const totalAttempts = Object.values(quizStats).reduce((sum, stats) => sum + stats.total, 0);
+            if (totalAttempts % 5 === 0) {
+                updateGrowthHistory();
+            }
+        }
+
+        // Load quiz stats from localStorage
+        function loadQuizStats() {
+            const savedStats = localStorage.getItem('quizStats');
+            if (savedStats) {
+                try {
+                    quizStats = JSON.parse(savedStats);
+                } catch (e) {
+                    console.error('Error loading quiz stats:', e);
+                }
+            }
+        }
+
+        // Save quiz stats to localStorage
+        function saveQuizStats() {
+            localStorage.setItem('quizStats', JSON.stringify(quizStats));
+        }
+
+        // Load growth history from localStorage
+        function loadGrowthHistory() {
+            const savedHistory = localStorage.getItem('growthHistory');
+            if (savedHistory) {
+                try {
+                    growthHistory = JSON.parse(savedHistory);
+                } catch (e) {
+                    console.error('Error loading growth history:', e);
+                    growthHistory = [];
+                }
+            }
+        }
+
+        // Save growth history to localStorage
+        function saveGrowthHistory() {
+            localStorage.setItem('growthHistory', JSON.stringify(growthHistory));
+        }
+
+        // Load word review data from localStorage
+        function loadWordReviewData() {
+            const savedData = localStorage.getItem('wordReviewData');
+            if (savedData) {
+                try {
+                    wordReviewData = JSON.parse(savedData);
+                } catch (e) {
+                    console.error('Error loading word review data:', e);
+                    wordReviewData = {};
+                }
+            }
+        }
+
+        // Save word review data to localStorage
+        function saveWordReviewData() {
+            localStorage.setItem('wordReviewData', JSON.stringify(wordReviewData));
+        }
+
+        // Update word review data based on Ebbinghaus forgetting curve
+        function updateWordReview(word, correct) {
+            const wordKey = word.toLowerCase();
+            const now = Date.now();
+
+            if (!wordReviewData[wordKey]) {
+                wordReviewData[wordKey] = {
+                    firstLearned: now,
+                    lastReviewed: now,
+                    reviewCount: 0,
+                    interval: 0,
+                    nextReview: now
+                };
+            }
+
+            const data = wordReviewData[wordKey];
+
+            if (correct) {
+                data.reviewCount++;
+                data.lastReviewed = now;
+
+                // Ebbinghaus intervals: 1, 2, 4, 7, 15, 30 days
+                const intervals = [1, 2, 4, 7, 15, 30];
+                const intervalIndex = Math.min(data.reviewCount - 1, intervals.length - 1);
+                data.interval = intervals[intervalIndex] * 24 * 60 * 60 * 1000; // Convert to milliseconds
+                data.nextReview = now + data.interval;
+            } else {
+                // Reset interval on wrong answer
+                data.reviewCount = 0;
+                data.interval = 0;
+                data.nextReview = now;
+            }
+
+            saveWordReviewData();
+        }
+
+        // Get words due for review
+        function getWordsDueForReview() {
+            const now = Date.now();
+            const dueWords = [];
+
+            for (const [wordKey, data] of Object.entries(wordReviewData)) {
+                if (data.nextReview <= now) {
+                    dueWords.push({
+                        word: wordKey,
+                        ...data
+                    });
+                }
+            }
+
+            // Sort by next review time (oldest first)
+            dueWords.sort((a, b) => a.nextReview - b.nextReview);
+
+            return dueWords;
+        }
+
+        // Check for due words and show review button
+        function checkDueWords() {
+            const dueWords = getWordsDueForReview();
+            const reviewBtn = document.getElementById('reviewBtn');
+
+            if (dueWords.length > 0) {
+                reviewBtn.style.display = 'block';
+                reviewBtn.textContent = `🔄 复习待复习词汇 (${dueWords.length})`;
+            } else {
+                reviewBtn.style.display = 'none';
+            }
+        }
+
+        // Start review mode
+        function startReviewMode() {
+            const dueWords = getWordsDueForReview();
+
+            if (dueWords.length === 0) {
+                alert('目前没有需要复习的词汇！');
+                return;
+            }
+
+            // Find the actual word objects from the vocabulary database
+            const reviewWordObjects = [];
+            for (const dueWord of dueWords) {
+                for (const levelKey of Object.keys(wordData)) {
+                    const found = wordData[levelKey].find(w => w.word.toLowerCase() === dueWord.word);
+                    if (found) {
+                        reviewWordObjects.push(found);
+                        break;
+                    }
+                }
+            }
+
+            if (reviewWordObjects.length === 0) {
+                alert('无法找到待复习的词汇数据。');
+                return;
+            }
+
+            // Set up review mode
+            currentWords = reviewWordObjects;
+            currentMode = 'quiz';
+            quizWords = reviewWordObjects;
+            currentIndex = 0;
+
+            // Go to page 2
+            goToPage2();
+        }
+
+        // Load wrong answers from localStorage
+        function loadWrongAnswers() {
+            const savedAnswers = localStorage.getItem('wrongAnswers');
+            if (savedAnswers) {
+                try {
+                    wrongAnswers = JSON.parse(savedAnswers);
+                } catch (e) {
+                    console.error('Error loading wrong answers:', e);
+                    wrongAnswers = [];
+                }
+            }
+            updateWrongAnswersButton();
+        }
+
+        // Save wrong answers to localStorage
+        function saveWrongAnswers() {
+            localStorage.setItem('wrongAnswers', JSON.stringify(wrongAnswers));
+            updateWrongAnswersButton();
+        }
+
+        // Add word to wrong answers notebook
+        function addToWrongAnswers(word) {
+            const wordKey = word.word.toLowerCase();
+            const now = Date.now();
+
+            // Check if word already exists in wrong answers
+            const existingIndex = wrongAnswers.findIndex(w => w.word.toLowerCase() === wordKey);
+            if (existingIndex !== -1) {
+                // Update existing entry
+                wrongAnswers[existingIndex].wrongCount++;
+                wrongAnswers[existingIndex].lastWrong = now;
+            } else {
+                // Add new entry
+                wrongAnswers.push({
+                    word: word.word,
+                    translation: word.translation,
+                    example: word.example,
+                    type: word.type,
+                    firstWrong: now,
+                    lastWrong: now,
+                    wrongCount: 1
+                });
+            }
+
+            // Keep only last 100 wrong answers
+            if (wrongAnswers.length > 100) {
+                wrongAnswers = wrongAnswers.slice(-100);
+            }
+
+            saveWrongAnswers();
+        }
+
+        // Update wrong answers button visibility
+        function updateWrongAnswersButton() {
+            const btn = document.getElementById('wrongAnswersBtn');
+            if (wrongAnswers.length > 0) {
+                btn.style.display = 'block';
+                btn.textContent = `📓 错题本 (${wrongAnswers.length})`;
+            } else {
+                btn.style.display = 'none';
+            }
+        }
+
+        // Show wrong answers
+        function showWrongAnswers() {
+            if (wrongAnswers.length === 0) {
+                alert('错题本是空的！');
+                return;
+            }
+
+            // Create a modal to display wrong answers
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0, 0, 0, 0.5);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                z-index: 1000;
+            `;
+
+            const content = document.createElement('div');
+            content.style.cssText = `
+                background: #FFFFFF;
+                border-radius: 20px;
+                padding: 30px;
+                max-width: 500px;
+                width: 90%;
+                max-height: 80vh;
+                overflow-y: auto;
+                box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            `;
+
+            let html = '<h2 style="text-align: center; color: #4C4C4C; margin-bottom: 20px;">📓 错题本</h2>';
+
+            wrongAnswers.forEach((item, index) => {
+                const date = new Date(item.lastWrong).toLocaleDateString('zh-CN');
+                html += `
+                    <div style="background: #F7F7F7; border-radius: 12px; padding: 15px; margin-bottom: 15px; border: 2px solid #E5E5E5;">
+                        <div style="font-size: 1.3em; font-weight: 800; color: #4C4C4C; margin-bottom: 5px;">${item.word}</div>
+                        <div style="font-size: 1.1em; color: #777777; margin-bottom: 5px;">${item.translation}</div>
+                        <div style="font-size: 0.9em; color: #777777; font-style: italic; margin-bottom: 5px;">${item.example}</div>
+                        <div style="font-size: 0.8em; color: #999999;">错误次数: ${item.wrongCount} · 最后错误: ${date}</div>
+                        <button onclick="practiceWrongWord(${index})" style="margin-top: 10px; background: #58CC02; color: #FFFFFF; border: 2px solid #58A700; padding: 8px 16px; border-radius: 12px; cursor: pointer; font-weight: 700; font-size: 0.9em;">练习这个词</button>
+                        <button onclick="removeWrongAnswer(${index})" style="margin-top: 10px; margin-left: 10px; background: #FF4B4B; color: #FFFFFF; border: 2px solid #E53939; padding: 8px 16px; border-radius: 12px; cursor: pointer; font-weight: 700; font-size: 0.9em;">移除</button>
+                    </div>
+                `;
+            });
+
+            html += '<button onclick="this.closest(\'div[style*=\"position: fixed\']\').remove()" style="display: block; margin: 20px auto; background: #FF9600; color: #FFFFFF; border: 2px solid #E58600; padding: 12px 30px; border-radius: 16px; cursor: pointer; font-weight: 700; font-size: 1em;">关闭</button>';
+
+            content.innerHTML = html;
+            modal.appendChild(content);
+            document.body.appendChild(modal);
+
+            // Store modal reference for button handlers
+            window.currentWrongAnswersModal = modal;
+        }
+
+        // Practice a wrong word
+        function practiceWrongWord(index) {
+            const word = wrongAnswers[index];
+
+            // Find the word in the vocabulary database
+            let wordObject = null;
+            for (const levelKey of Object.keys(wordData)) {
+                const found = wordData[levelKey].find(w => w.word.toLowerCase() === word.word.toLowerCase());
+                if (found) {
+                    wordObject = found;
+                    break;
+                }
+            }
+
+            if (wordObject) {
+                currentWords = [wordObject];
+                currentMode = 'learn';
+                quizWords = [wordObject];
+                currentIndex = 0;
+
+                // Close modal
+                if (window.currentWrongAnswersModal) {
+                    window.currentWrongAnswersModal.remove();
+                }
+
+                // Go to page 2
+                goToPage2();
+            }
+        }
+
+        // Remove word from wrong answers
+        function removeWrongAnswer(index) {
+            wrongAnswers.splice(index, 1);
+            saveWrongAnswers();
+
+            // Refresh the modal
+            if (window.currentWrongAnswersModal) {
+                window.currentWrongAnswersModal.remove();
+            }
+            showWrongAnswers();
+        }
+
+        // Update growth history
+        function updateGrowthHistory() {
+            const vocabEstimate = calculateVocabEstimate();
+            const now = new Date();
+            const dateStr = now.toLocaleDateString('zh-CN', { month: 'short', day: 'numeric' });
+
+            // Check if we already have an entry for today
+            const todayEntry = growthHistory.find(entry => entry.date === dateStr);
+            if (todayEntry) {
+                todayEntry.vocab = vocabEstimate;
+            } else {
+                growthHistory.push({
+                    date: dateStr,
+                    vocab: vocabEstimate,
+                    timestamp: now.getTime()
+                });
+            }
+
+            // Keep only last 30 entries
+            if (growthHistory.length > 30) {
+                growthHistory = growthHistory.slice(-30);
+            }
+
+            saveGrowthHistory();
+        }
+
+        // Toggle stats display
+        function toggleStats() {
+            const statsContainer = document.getElementById('statsContainer');
+            if (statsContainer.style.display === 'none') {
+                statsContainer.style.display = 'block';
+                updateStatsDisplay();
+                drawGrowthChart();
+            } else {
+                statsContainer.style.display = 'none';
+            }
+        }
+
+        // Calculate vocabulary estimate based on quiz accuracy
+        function calculateVocabEstimate() {
+            let totalWords = 0;
+            let masteredWords = 0;
+
+            const levelSizes = {
+                level1: 300,
+                level2: 400,
+                level3: 500,
+                level4: 600,
+                level5: 600,
+                level6: 547
+            };
+
+            for (let level = 1; level <= 6; level++) {
+                const levelKey = `level${level}`;
+                const stats = quizStats[levelKey];
+                const levelSize = levelSizes[levelKey];
+
+                if (stats.total > 0) {
+                    const accuracy = stats.correct / stats.total;
+                    masteredWords += Math.round(levelSize * accuracy);
+                }
+                totalWords += levelSize;
+            }
+
+            return masteredWords;
+        }
+
+        // Update stats display
+        function updateStatsDisplay() {
+            const vocabEstimate = calculateVocabEstimate();
+            document.getElementById('vocabEstimate').textContent = vocabEstimate;
+
+            const statsGrid = document.getElementById('statsGrid');
+            statsGrid.innerHTML = '';
+
+            const levelSizes = {
+                level1: 300,
+                level2: 400,
+                level3: 500,
+                level4: 600,
+                level5: 600,
+                level6: 547
+            };
+
+            for (let level = 1; level <= 6; level++) {
+                const levelKey = `level${level}`;
+                const stats = quizStats[levelKey];
+                const levelSize = levelSizes[levelKey];
+
+                let accuracy = 0;
+                let accuracyClass = 'low';
+                let accuracyText = '0%';
+
+                if (stats.total > 0) {
+                    accuracy = (stats.correct / stats.total) * 100;
+                    accuracyText = `${Math.round(accuracy)}%`;
+
+                    if (accuracy >= 80) {
+                        accuracyClass = 'high';
+                    } else if (accuracy >= 60) {
+                        accuracyClass = 'medium';
+                    }
+                }
+
+                const statItem = document.createElement('div');
+                statItem.className = 'stat-item';
+                statItem.innerHTML = `
+                    <div class="stat-level">Level ${level}</div>
+                    <div class="stat-accuracy ${accuracyClass}">${accuracyText}</div>
+                    <div class="stat-words">${stats.total} 题 · ${levelSize} 词</div>
+                `;
+                statsGrid.appendChild(statItem);
+            }
+        }
+
+        // Draw growth chart
+        function drawGrowthChart() {
+            const canvas = document.getElementById('growthChart');
+            const ctx = canvas.getContext('2d');
+
+            // Set canvas size
+            const rect = canvas.getBoundingClientRect();
+            canvas.width = rect.width * 2;
+            canvas.height = rect.height * 2;
+            ctx.scale(2, 2);
+
+            const width = rect.width;
+            const height = rect.height;
+            const padding = 40;
+            const chartWidth = width - padding * 2;
+            const chartHeight = height - padding * 2;
+
+            // Clear canvas
+            ctx.clearRect(0, 0, width, height);
+
+            // If no data, show message
+            if (growthHistory.length < 2) {
+                ctx.fillStyle = '#777777';
+                ctx.font = '14px Nunito, sans-serif';
+                ctx.textAlign = 'center';
+                ctx.fillText('完成更多测试后显示增长曲线', width / 2, height / 2);
+                return;
+            }
+
+            // Find min and max values
+            const vocabValues = growthHistory.map(entry => entry.vocab);
+            const minVocab = Math.min(...vocabValues, 0);
+            const maxVocab = Math.max(...vocabValues, 100);
+            const vocabRange = maxVocab - minVocab || 100;
+
+            // Draw grid lines
+            ctx.strokeStyle = '#E5E5E5';
+            ctx.lineWidth = 1;
+            for (let i = 0; i <= 4; i++) {
+                const y = padding + (chartHeight / 4) * i;
+                ctx.beginPath();
+                ctx.moveTo(padding, y);
+                ctx.lineTo(width - padding, y);
+                ctx.stroke();
+
+                // Y-axis labels
+                const value = Math.round(maxVocab - (vocabRange / 4) * i);
+                ctx.fillStyle = '#777777';
+                ctx.font = '12px Nunito, sans-serif';
+                ctx.textAlign = 'right';
+                ctx.fillText(value, padding - 5, y + 4);
+            }
+
+            // Draw the line
+            ctx.strokeStyle = '#1CB0F6';
+            ctx.lineWidth = 3;
+            ctx.lineCap = 'round';
+            ctx.lineJoin = 'round';
+            ctx.beginPath();
+
+            growthHistory.forEach((entry, index) => {
+                const x = padding + (chartWidth / (growthHistory.length - 1)) * index;
+                const y = padding + chartHeight - ((entry.vocab - minVocab) / vocabRange) * chartHeight;
+
+                if (index === 0) {
+                    ctx.moveTo(x, y);
+                } else {
+                    ctx.lineTo(x, y);
+                }
+            });
+
+            ctx.stroke();
+
+            // Draw gradient fill under the line
+            const gradient = ctx.createLinearGradient(0, padding, 0, height - padding);
+            gradient.addColorStop(0, 'rgba(28, 176, 246, 0.3)');
+            gradient.addColorStop(1, 'rgba(28, 176, 246, 0.05)');
+
+            ctx.fillStyle = gradient;
+            ctx.beginPath();
+            ctx.moveTo(padding, height - padding);
+
+            growthHistory.forEach((entry, index) => {
+                const x = padding + (chartWidth / (growthHistory.length - 1)) * index;
+                const y = padding + chartHeight - ((entry.vocab - minVocab) / vocabRange) * chartHeight;
+                ctx.lineTo(x, y);
+            });
+
+            ctx.lineTo(width - padding, height - padding);
+            ctx.closePath();
+            ctx.fill();
+
+            // Draw data points
+            growthHistory.forEach((entry, index) => {
+                const x = padding + (chartWidth / (growthHistory.length - 1)) * index;
+                const y = padding + chartHeight - ((entry.vocab - minVocab) / vocabRange) * chartHeight;
+
+                ctx.beginPath();
+                ctx.arc(x, y, 5, 0, Math.PI * 2);
+                ctx.fillStyle = '#FFFFFF';
+                ctx.fill();
+                ctx.strokeStyle = '#1CB0F6';
+                ctx.lineWidth = 3;
+                ctx.stroke();
+
+                // Show date for first and last points
+                if (index === 0 || index === growthHistory.length - 1) {
+                    ctx.fillStyle = '#777777';
+                    ctx.font = '11px Nunito, sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.fillText(entry.date, x, height - padding + 20);
+                }
+            });
+        }
+
         // Initialize
         loadWords();
+
+        // Check for due words after loading
+        setTimeout(checkDueWords, 1000);
         
         // Load voices when available
         if ('speechSynthesis' in window) {
@@ -797,17 +1888,17 @@
         function generateEmojiDecoration() {
             const emojis = [
                 // Animals
-                '🐶', '🐱', '', '🦊', '🐻', '🐼', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐵', '🐔', '🐧', '🐦',
-                '🦆', '🦅', '🦉', '🦇', '🐺', '🐗', '🐴', '🦄', '🐝', '🦋', '', '🐍', '🦎', '🦖', '🦕', '🐙',
-                '�', '�🦐', '🦞', '🦀', '🐡', '🐠', '🐟', '🐬', '🐳', '🐋', '🦈', '🐊', '🐅', '🐆', '🦓', '🦍',
+                '🐶', '🐱', '🐰', '🦊', '🐻', '🐼', '🐨', '🐯', '🦁', '🐮', '🐷', '🐸', '🐵', '🐔', '🐧', '🐦',
+                '🦆', '🦅', '🦉', '🦇', '🐺', '🐗', '🐴', '🦄', '🐝', '🦋', '🐢', '🐍', '🦎', '🦖', '🦕', '🐙',
+                '🦑', '🦐', '🦞', '🦀', '🐡', '🐠', '🐟', '🐬', '🐳', '🐋', '🦈', '🐊', '🐅', '🐆', '🦓', '🦍',
                 // Food
-                '🍎', '🍐', '🍊', '🍋', '🍌', '🍉', '🍇', '🍓', '🫐', '', '🍑', '🥭', '🍍', '🥥', '🥝', '🍅',
-                '🍆', '🥑', '🥦', '🥬', '🥒', '🌶️', '🫑', '🌽', '🥕', '🫒', '🧄', '🧅', '🥔', '🍠', '🥐', '🥯',
-                '🍞', '🥖', '🥨', '🧀', '🥚', '🍳', '🧈', '🥞', '🧇', '🥓', '🥩', '🍗', '🍖', '🦴', '🌭', '🍔',
-                '🍟', '🍕', '🫓', '🥪', '🥙', '🧆', '🌮', '🌯', '🫔', '🥗', '🥘', '🫕', '🍝', '🍜', '🍲', '🍛',
-                '🍣', '🍱', '🥟', '🦪', '🍤', '🍙', '🍚', '🍘', '🍥', '🥠', '�', '�', '�', '�', '�', '�',
-                '�', '�', '�', '�', '�', '�', '�', '☕', '�', '�', '�', '�', '�', '�', '�', '�',
-                '�', '�', '�', '�', '�', '�', '�', '�', '�', '�', '�️', '�', '�', '�', '�', '�'
+                '🍎', '🍐', '🍊', '🍋', '🍌', '🍉', '🍇', '🍓', '🫐', '🍈', '🍒', '🍑', '🥭', '🍍', '🥥', '🥝',
+                '🍅', '🍆', '🥑', '🥦', '🥬', '🥒', '🌶️', '🫑', '🌽', '🥕', '🫒', '🧄', '🧅', '🥔', '🍠', '🥐',
+                '🥯', '🍞', '🥖', '🥨', '🧀', '🥚', '🍳', '🧈', '🥞', '🧇', '🥓', '🥩', '🍗', '🍖', '🦴', '🌭',
+                '🍔', '🍟', '🍕', '🫓', '🥪', '🥙', '🧆', '🌮', '🌯', '🫔', '🥗', '🥘', '🫕', '🍝', '🍜', '🍲',
+                '🍛', '🍣', '🍱', '🥟', '🦪', '🍤', '🍙', '🍚', '🍘', '🍥', '🥠', '🍩', '🍪', '🎂', '🍰', '🧁',
+                '🥧', '🍫', '🍬', '🍭', '🍮', '🍯', '🍼', '🥛', '☕', '🫖', '🍵', '🧃', '🥤', '🧋', '🍶', '🍺',
+                '🍻', '🥂', '🍷', '🥃', '🍸', '🍹', '🧉', '🍾', '🧊', '🥄', '🍴', '🍽️', '🥣', '🥡', '🥢', '🧂'
             ];
 
             const container = document.getElementById('emojiDecoration');
@@ -830,26 +1921,30 @@
                 const rotation = (Math.random() - 0.5) * 50;
                 emojiItem.style.setProperty('--rotation', `${rotation}deg`);
 
+                // Random animation delay for twinkling effect
+                const delay = Math.random() * 3;
+                emojiItem.style.animationDelay = `${delay}s`;
+
                 // Determine which side and position
                 const sideIndex = Math.floor(i / emojisPerSide); // 0: top, 1: right, 2: bottom, 3: left
                 const positionInSide = i % emojisPerSide; // 0, 1, 2, 3
 
                 switch (sideIndex) {
-                    case 0: // top - evenly spaced
-                        emojiItem.style.top = '5%';
-                        emojiItem.style.left = `${15 + positionInSide * 23}%`;
+                    case 0: // top - along top edge inside container
+                        emojiItem.style.top = '5px';
+                        emojiItem.style.left = `${12 + positionInSide * 22}%`;
                         break;
-                    case 1: // right - evenly spaced
-                        emojiItem.style.right = '2%';
-                        emojiItem.style.top = `${15 + positionInSide * 23}%`;
+                    case 1: // right - along right edge inside container
+                        emojiItem.style.right = '5px';
+                        emojiItem.style.top = `${15 + positionInSide * 22}%`;
                         break;
-                    case 2: // bottom - evenly spaced
-                        emojiItem.style.bottom = '5%';
-                        emojiItem.style.left = `${15 + positionInSide * 23}%`;
+                    case 2: // bottom - along bottom edge inside container
+                        emojiItem.style.bottom = '5px';
+                        emojiItem.style.left = `${12 + positionInSide * 22}%`;
                         break;
-                    case 3: // left - evenly spaced
-                        emojiItem.style.left = '2%';
-                        emojiItem.style.top = `${15 + positionInSide * 23}%`;
+                    case 3: // left - along left edge inside container
+                        emojiItem.style.left = '5px';
+                        emojiItem.style.top = `${15 + positionInSide * 22}%`;
                         break;
                 }
 
