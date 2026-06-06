@@ -154,11 +154,13 @@
         }
 
         .level-selector {
-            display: flex;
-            justify-content: center;
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
             gap: 10px;
             margin: 15px 0;
-            flex-wrap: wrap;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
         }
 
         .level-btn {
@@ -723,14 +725,12 @@
             <h1>英语词汇小测试</h1>
             
             <div class="level-selector">
-                <select id="levelSelect" onchange="selectLevel(parseInt(this.value))" style="padding: 12px 20px; font-size: 0.95em; border: 2px solid #E5E5E5; border-radius: 16px; cursor: pointer; font-weight: 700; color: #4C4C4C; background: #FFFFFF; box-shadow: 0 4px 0 #E5E5E5; min-width: 150px;">
-                    <option value="1">Level 1 (300词)</option>
-                    <option value="2">Level 2 (400词)</option>
-                    <option value="3">Level 3 (500词)</option>
-                    <option value="4">Level 4 (600词)</option>
-                    <option value="5">Level 5 (600词)</option>
-                    <option value="6">Level 6 (547词)</option>
-                </select>
+                <button class="level-btn active" onclick="selectLevel(1)">Level 1</button>
+                <button class="level-btn" onclick="selectLevel(2)">Level 2</button>
+                <button class="level-btn" onclick="selectLevel(3)">Level 3</button>
+                <button class="level-btn" onclick="selectLevel(4)">Level 4</button>
+                <button class="level-btn" onclick="selectLevel(5)">Level 5</button>
+                <button class="level-btn" onclick="selectLevel(6)">Level 6</button>
             </div>
 
             <div class="mode-selector">
@@ -760,8 +760,6 @@
                     <canvas id="growthChart"></canvas>
                 </div>
             </div>
-
-            <button class="start-btn" onclick="goToPage2()">开始学习 🚀</button>
         </div>
 
         <!-- Page 2: Learning -->
@@ -783,10 +781,12 @@
                 <div class="score-display" id="scoreDisplay"></div>
 
                 <div class="nav-buttons">
-                    <button class="nav-btn back" onclick="goToPage1()">⬅️ 返回</button>
                     <button class="nav-btn prev" onclick="prevWord()">⬅️ 上一个</button>
-                    <button class="nav-btn shuffle" onclick="shuffleWords()">🔀 打乱</button>
                     <button class="nav-btn next" onclick="nextWord()">下一个 ➡️</button>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="nav-btn back" onclick="goToPage1()">⬅️ 返回目录</button>
                 </div>
 
                 <div class="progress">
@@ -814,8 +814,12 @@
                 <div class="quiz-result" id="quizResult"></div>
 
                 <div class="nav-buttons">
-                    <button class="nav-btn back" onclick="goToPage1()">⬅️ 返回</button>
-                    <button class="nav-btn shuffle" onclick="shuffleWords()">🔀 打乱</button>
+                    <button class="nav-btn prev" onclick="prevWord()">⬅️ 上一个</button>
+                    <button class="nav-btn next" onclick="nextWord()">下一个 ➡️</button>
+                </div>
+
+                <div class="nav-buttons">
+                    <button class="nav-btn back" onclick="goToPage1()">⬅️ 返回目录</button>
                 </div>
 
                 <div class="progress">
@@ -906,17 +910,20 @@
             document.querySelectorAll('.level-btn').forEach((btn, index) => {
                 btn.classList.toggle('active', index + 1 === level);
             });
-            
+
             const levelKey = `level${level}`;
             if (wordData[levelKey]) {
                 currentWords = wordData[levelKey];
+                console.log(`Selected Level ${level}, loaded ${currentWords.length} words`);
             } else {
                 // Fallback to level1 if level doesn't exist yet
+                console.warn(`Level ${level} not found, falling back to level1`);
                 currentWords = wordData.level1;
             }
-            
+
             currentIndex = 0;
             shuffled = false;
+            quizWords = []; // Reset quiz words when level changes
         }
 
         // Select mode
@@ -926,6 +933,12 @@
                 btn.classList.remove('active');
             });
             event.target.classList.add('active');
+
+            // Automatically shuffle words when entering a mode
+            shuffleWords();
+
+            // Automatically go to page 2 after selecting mode
+            goToPage2();
         }
 
         // Update display
@@ -1141,7 +1154,7 @@
                 // Small delay to ensure audio is ready
                 setTimeout(() => {
                     window.speechSynthesis.speak(utterance);
-                }, 100);
+                }, 80);
             }
         }
 
@@ -1197,7 +1210,7 @@
                 // Small delay to ensure audio is ready
                 setTimeout(() => {
                     window.speechSynthesis.speak(utterance);
-                }, 100);
+                }, 80);
             }
         }
 
