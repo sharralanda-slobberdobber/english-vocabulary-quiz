@@ -1087,60 +1087,117 @@
         // Play word sound
         function playWordSound() {
             if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech
+                window.speechSynthesis.cancel();
+
                 const word = currentWords[currentIndex];
                 const utterance = new SpeechSynthesisUtterance(word.word);
                 utterance.lang = 'en-US';
-                utterance.rate = 0.7;
+                utterance.rate = 0.85; // Slightly faster for clarity
                 utterance.pitch = 1.0;
                 utterance.volume = 1.0;
-                
-                // Try to get English voice
+
+                // Add pauses for natural speech
+                utterance.onstart = function() {
+                    // Small delay before speaking
+                };
+
+                // Try to get the best English voice
                 const voices = window.speechSynthesis.getVoices();
                 let englishVoice = null;
-                for (let voice of voices) {
-                    if (voice.lang.includes('en') || voice.lang.includes('US') || voice.lang.includes('GB')) {
-                        englishVoice = voice;
-                        if (voice.name.includes('Google') || voice.name.includes('Microsoft')) {
-                            break;
-                        }
+
+                // Priority order: Google US English > Microsoft US English > Any US English > Any English
+                const preferredVoices = [
+                    'Google US English',
+                    'Microsoft David',
+                    'Microsoft Zira',
+                    'en-US',
+                    'en-GB'
+                ];
+
+                for (const preferred of preferredVoices) {
+                    const found = voices.find(voice =>
+                        voice.name.includes(preferred) ||
+                        voice.lang === preferred ||
+                        voice.lang.startsWith(preferred)
+                    );
+                    if (found) {
+                        englishVoice = found;
+                        break;
                     }
                 }
-                
+
+                // Fallback to any English voice
+                if (!englishVoice) {
+                    englishVoice = voices.find(voice =>
+                        voice.lang.includes('en') || voice.lang.includes('US') || voice.lang.includes('GB')
+                    );
+                }
+
                 if (englishVoice) {
                     utterance.voice = englishVoice;
                 }
-                
-                window.speechSynthesis.speak(utterance);
+
+                // Small delay to ensure audio is ready
+                setTimeout(() => {
+                    window.speechSynthesis.speak(utterance);
+                }, 100);
             }
         }
 
         // Play example sentence sound
         function playExampleSound() {
             if ('speechSynthesis' in window) {
+                // Cancel any ongoing speech
+                window.speechSynthesis.cancel();
+
                 const word = currentWords[currentIndex];
                 const utterance = new SpeechSynthesisUtterance(word.example);
                 utterance.lang = 'en-US';
-                utterance.rate = 0.6;
+                utterance.rate = 0.8; // Slightly slower for sentences
                 utterance.pitch = 1.0;
                 utterance.volume = 1.0;
-                
-                // Try to get English voice
+
+                // Try to get the best English voice
                 const voices = window.speechSynthesis.getVoices();
                 let englishVoice = null;
-                for (let voice of voices) {
-                    if (voice.lang.includes('en') || voice.lang.includes('US') || voice.lang.includes('GB')) {
-                        englishVoice = voice;
-                        if (voice.name.includes('Google') || voice.name.includes('Microsoft')) {
-                            break;
-                        }
+
+                // Priority order: Google US English > Microsoft US English > Any US English > Any English
+                const preferredVoices = [
+                    'Google US English',
+                    'Microsoft David',
+                    'Microsoft Zira',
+                    'en-US',
+                    'en-GB'
+                ];
+
+                for (const preferred of preferredVoices) {
+                    const found = voices.find(voice =>
+                        voice.name.includes(preferred) ||
+                        voice.lang === preferred ||
+                        voice.lang.startsWith(preferred)
+                    );
+                    if (found) {
+                        englishVoice = found;
+                        break;
                     }
                 }
-                
+
+                // Fallback to any English voice
+                if (!englishVoice) {
+                    englishVoice = voices.find(voice =>
+                        voice.lang.includes('en') || voice.lang.includes('US') || voice.lang.includes('GB')
+                    );
+                }
+
                 if (englishVoice) {
                     utterance.voice = englishVoice;
                 }
-                
-                window.speechSynthesis.speak(utterance);
+
+                // Small delay to ensure audio is ready
+                setTimeout(() => {
+                    window.speechSynthesis.speak(utterance);
+                }, 100);
             }
         }
 
